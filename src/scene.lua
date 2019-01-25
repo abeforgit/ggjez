@@ -11,6 +11,10 @@ function Scene:new()
     return scn
 end
 
+function Scene:addActor(actor)
+    table.insert( self.actors, actor )
+end
+
 
 function Scene:draw()
     for _, actor in ipairs(self.actors) do
