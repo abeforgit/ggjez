@@ -23,7 +23,6 @@ function Enemy:update(dt)
   local dx = self.target.x - self.x
   local dy = self.target.y - self.y
   local length = math.sqrt(dx*dx + dy*dy)
-  print((dx / length) * dt * self.speed)
   self.x = self.x + (dx / length) * dt * self.speed
   self.y = self.y + (dy / length) * dt * self.speed
 end
