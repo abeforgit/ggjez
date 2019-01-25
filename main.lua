@@ -1,7 +1,9 @@
-Tower = require("src.tower")
+Scene = require("src.scene")
+Player = require("src.player")
 
 function love.load()
-    tower = Tower:new()
+    scn = Scene:new()
+    scn:addActor(Player:new())
 end
 
 function love.update(dt)
@@ -12,5 +14,5 @@ function love.keypressed(key)
 end
 
 function love.draw(dt)
-    tower:draw(dt)
+    scn:draw()
 end
