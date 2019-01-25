@@ -13,5 +13,4 @@ end
 
 function love.draw(dt)
     scn:draw()
-    
 end
