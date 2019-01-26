@@ -32,11 +32,6 @@ end
 function Tower:update(dt)
     local items, len = self.scene.world:queryRect(self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
 
-    for i = 1, len do
-        print(i)
-        print(os.time())
-        print(items[i])
-    end
 end
 
 return Tower

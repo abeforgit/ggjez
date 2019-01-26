@@ -17,4 +17,9 @@ function Utils.inheritsFrom( baseClass )
   return new_class
 end
 
+Utils.upKeys = {w = true, up = true}
+Utils.downKeys = {s = true, down = true}
+Utils.leftKeys = {a = true, left = true}
+Utils.rightKeys = {d = true, right = true}
+
 return Utils

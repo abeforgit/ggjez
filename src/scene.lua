@@ -15,8 +15,10 @@ function Scene:new()
     return scn
 end
 
-function Scene:addActor(actor)
-    table.insert(self.actors, actor)
+function Scene:addActor(actor, x, y)
+    actor.x = x or 0
+    actor.y = y or 0
+    table.insert( self.actors, actor )
     actor:setScene(self)
 end
 
