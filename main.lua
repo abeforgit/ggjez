@@ -12,7 +12,6 @@ function love.load()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
     love.mousepressed = scn:mousepressed()
- 
 end
 
 function love.update(dt)
