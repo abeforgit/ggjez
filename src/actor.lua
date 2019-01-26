@@ -1,3 +1,5 @@
+util = require("src.utils")
+
 local Actor = {
     scene = nil,
     img = nil,
@@ -5,7 +7,8 @@ local Actor = {
     y = 0,
     w = 128,
     h = 128,
-    type = "actor"
+    type = "actor",
+    solid = true
 }
 
 function Actor:setScene(scn)
@@ -15,6 +18,11 @@ end
 
 function Actor:draw()
     love.graphics.draw(self.img, self.x, self.y)
+    if self.visionRect then
+        l, t, w, h = util.unpackRect(self.visionRect)
+        love.graphics.rectangle("line", l, t, w, h)
+    end
+
 end
 
 function Actor:update()

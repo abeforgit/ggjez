@@ -22,4 +22,9 @@ Utils.downKeys = {s = true, down = true}
 Utils.leftKeys = {a = true, left = true}
 Utils.rightKeys = {d = true, right = true}
 
+function Utils.unpackRect(rect) 
+    return rect.l, rect.t, rect.w, rect.h
+end
+
+
 return Utils

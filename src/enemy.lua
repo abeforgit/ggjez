@@ -3,17 +3,22 @@ local Actor = require("src.actor")
 
 Enemy = Utils.inheritsFrom(Actor)
 
+Enemy.speed = 100
+Enemy.health = 100
+Enemy.type = "enemy"
+Enemy.visionRect = nil
+Enemy.range = 100
+
 function Enemy:new(imagePath)
   local enemy = self.create()
   self.img = love.graphics.newImage(imagePath)
-  self.speed = 100
-  self.health = 100
-  self.type = "enemy"
+  self.visionRect = {
+    l = self.x - self.range/2,
+    t = self.y - self.range/2,
+    w = self.w + self.range,
+    h = self.h + self.range
+  }
   return enemy
-end
-
-function Enemy:print()
-  print("Enemy")
 end
 
 function Enemy:update(dt)
@@ -33,6 +38,8 @@ function Enemy:update(dt)
     self.x = newX
     self.y = newY
   end
+
+  
 end
 
 function Enemy:takeDamage(dmg)
