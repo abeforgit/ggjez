@@ -10,7 +10,8 @@ local Scene = {
     world = nil,
     player = nil,
     hotbar = nil,
-    healthbar = nil
+    healthbar = nil,
+    cursorSwitched = false
 }
 
 function Scene:new() 
@@ -28,6 +29,8 @@ function Scene:new()
     self.hotbar = Hotbar:new()
     scn.healthbar = Healthbar:new()
     scn.healthbar:setScene(self)
+
+    love.mouse.setCursor(love.mouse.newCursor("assets/cursor-good.png"))
 
     love.window.setFullscreen(true)
     return scn
@@ -54,6 +57,11 @@ end
 
 function Scene:draw()
     local severity = 100 - self.player.health
+    self.player.health = self.player.health - 0.5
+    if ( not (self.cursorSwitched) and severity >= 100) then
+        love.mouse.setCursor(love.mouse.newCursor("assets/cursor.png"))
+        self.cursorSwitched = true
+    end
     Glitches.setBackground(severity)
     Glitches.screenShake(severity)
     for _, actor in ipairs(self.actors) do
