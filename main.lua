@@ -7,7 +7,7 @@ function love.load()
 end
 
 function love.update(dt)
-    tower:update(dt)
+    scn:update(dt)
 end
 
 function love.keypressed(key)

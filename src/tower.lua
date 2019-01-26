@@ -1,10 +1,13 @@
 Tower = {
     x = 100,
     y = 100,
+    health = 100,
+    w = 128,
+    h = 128,
     img = nil
 }
 
-function Tower:new()
+function Tower:new(scene)
     local twr = {}
     setmetatable(twr, self)
     self.__index = self
@@ -13,7 +16,10 @@ function Tower:new()
 end
 
 function Tower:update(dt)
-    -- check if enemies in range
+    if self.health <= 0
+    then
+        -- remove
+    end
 end
 
 function Tower:draw()
