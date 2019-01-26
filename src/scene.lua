@@ -9,6 +9,7 @@ local TowerPet = require("src.towerPet")
 local Hotbar = require("src.hotbar")
 local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
+local Static = require("src.static")
 
 local Scene = {
     actors = {},
@@ -24,6 +25,11 @@ function Scene:new()
     setmetatable(scn, self) 
     self.__index = self
     self.world = bump.newWorld()
+
+    scn:addActor(Static:new("assets/carpet.png", false), 200, 100)
+    scn:addActor(Static:new("assets/bed-left.png", true), 500, 100)
+    scn:addActor(Static:new("assets/bed-right.png", true), 628, 100)
+
     self.player = Player:new()
     scn:addActor(self.player)
 

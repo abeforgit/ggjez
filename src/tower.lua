@@ -27,7 +27,6 @@ function Tower:setScene(scn)
         w = self.w + self.range,
         h = self.h + self.range
     }
-    scn.world:add(self, self.x, self.y, self.w, self.h)
 end
 
 function Tower:update(dt)

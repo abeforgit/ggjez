@@ -29,11 +29,12 @@ function Enemy:update(dt)
     local targetX = self.x + (dx / length) * dt * self.speed
     local targetY = self.y + (dy / length) * dt * self.speed
     local playerFilter = function(item, other)
-      if item.type ~= nil then
-        return "bounce"
+      if (other.solid and item.solid) then
+          return "bounce"
+      else
+          return "cross"
       end
-      return "cross"
-    end
+  end
     local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, playerFilter)
     self.x = newX
     self.y = newY
