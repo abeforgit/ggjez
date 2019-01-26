@@ -3,8 +3,6 @@ local Actor = require("src.actor")
 
 local Tower = util.inheritsFrom(Actor)
 
-Tower.x = 250
-Tower.y = 250
 Tower.health = 100
 Tower.range = 100
 Tower.width = 128
@@ -31,7 +29,14 @@ end
 
 function Tower:update(dt)
     local items, len = self.scene.world:queryRect(self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
+end
 
+function Tower:setX(x)
+    self.x = x
+end
+
+function Tower:setY(y)
+    self.y = y
 end
 
 return Tower
