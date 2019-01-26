@@ -17,7 +17,13 @@ local Scene = {
     player = nil,
     hotbar = nil,
     healthbar = nil,
-    cursorSwitched = false
+    cursorSwitched = false,
+
+    towers = {
+        TowerConversation,
+        TowerMedication,
+        TowerPet
+    }
 }
 
 function Scene:new() 
@@ -34,9 +40,10 @@ function Scene:new()
     scn:addActor(self.player)
 
     self.hotbar = Hotbar:new()
+    self.hotbar:setScene(scn)
 
     self.healthbar = Healthbar:new()
-    self.healthbar:setScene(self)
+    self.healthbar:setScene(scn)
 
     love.mouse.setCursor(love.mouse.newCursor("assets/cursor-good.png"))
 

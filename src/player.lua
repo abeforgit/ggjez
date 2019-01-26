@@ -9,12 +9,6 @@ local Player = util.inheritsFrom(Actor)
 
 local spd = 300
 
-towers = {
-    TowerConversation,
-    TowerMedication,
-    TowerPet
-}
-
 Player.health = 100
 Player.xVel = 0
 Player.yVel = 0
@@ -67,7 +61,7 @@ function Player:mousepressed()
 end
 
 function Player:spawnTower(x, y)
-    local twr = towers[self.selectedTower]:new()
+    local twr = self.scene.towers[self.selectedTower]:new()
     upperX = x - twr.w/2
     upperY = y - twr.h/2
     self.scene:addActor(twr, upperX, upperY)
@@ -118,8 +112,8 @@ function Player:wheelmoved(x, y)
     return function (x, y)
         if y > 0 then
             self.selectedTower = self.selectedTower + 1
-            if self.selectedTower > #towers then
-                self.selectedTower = #towers
+            if self.selectedTower > #self.scene.towers then
+                self.selectedTower = #self.scene.towers
             end
         else
             self.selectedTower = self.selectedTower - 1
