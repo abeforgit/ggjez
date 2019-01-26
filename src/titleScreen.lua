@@ -8,8 +8,13 @@ local Scene = require("src.scene")
 
 local TitleScreen = {
    playButton = nil,
+   quitButton = nil,
    width = nil,
-   height = nil
+   height = nil,
+   playButtonX = nil,
+   playButtonY = nil,
+   quitButtonX = nil,
+   quitButtonY = nil
 }
 
 function startGame()
@@ -21,7 +26,7 @@ function startGame()
 end
 
 function quitGame()
-    return nil
+    love.event.quit()
 end
 
 function TitleScreen:new() 
@@ -31,6 +36,7 @@ function TitleScreen:new()
     love.window.setTitle("Main menu")
     love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
     playButton = love.graphics.newImage("assets/play.png")
+    quitButton = love.graphics.newImage("assets/death.png")
     width = playButton:getWidth()
     height = playButton:getHeight()
     return scn
@@ -56,7 +62,12 @@ end
 
 
 function TitleScreen:draw()
-   love.graphics.draw(playButton, love.graphics.getWidth() /2 , love.graphics.getHeight() / 2 , 0, 1, 1, width / 2, height / 2)
+    playButtonX = love.graphics.getWidth() / 2
+    playButtonY = love.graphics.getHeight() / 2
+    quitButtonX = love.graphics.getWidth() / 2 
+    quitButtonY = love.graphics.getHeight() / 2 + 200
+    love.graphics.draw(playButton, playButtonX , playButtonY, 0, 1, 1, width / 2, height / 2)
+    love.graphics.draw(quitButton, quitButtonX, quitButtonY, 0, 1, 1, quitButton:getWidth() / 2, quitButton:getHeight() / 2)
 end
 
 function TitleScreen:update(dt)
@@ -70,19 +81,28 @@ end
 function TitleScreen:mousepressed()
     return function (x, y, button)
         if button == 1 then
-            local imgX = love.graphics.getWidth() /2 
-            local imgY = love.graphics.getHeight() / 2
+            local dist = calculateDist(x, y, playButtonX, playButtonY)
             local r = playButton:getWidth()/2
-            local diffX = x - imgX
-            local diffY = y - imgY
-            local dist = math.sqrt( diffX * diffX + diffY * diffY)
             if dist < r then
                 startGame()
+                return nil
+            end
+            dist = calculateDist(x, y, quitButtonX, quitButtonY)
+            r = quitButton:getWidth()/2
+            if dist < r then
+                quitGame()
+                return nil
             end
         end
     end
 
     -- return self.player:mousepressed()
+end
+
+function calculateDist(x, y, imgX, imgY)
+    local diffX = x - imgX
+    local diffY = y - imgY
+    return math.sqrt(diffX * diffX + diffY * diffY)
 end
 
 function TitleScreen:keypressed()
