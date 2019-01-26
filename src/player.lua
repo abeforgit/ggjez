@@ -61,8 +61,8 @@ end
 
 function Player:spawnTower(x, y)
     local twr = towers[self.selectedTower]:new()
-    upperX = x - twr.width/2
-    upperY = y - twr.height/2
+    upperX = x - twr.w/2
+    upperY = y - twr.h/2
     self.scene:addActor(twr, upperX, upperY)
 end
 
