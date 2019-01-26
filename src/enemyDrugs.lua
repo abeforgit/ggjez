@@ -1,5 +1,5 @@
-Enemy = require("src.enemy")
-Utils = require("src.utils")
+local Enemy = require("src.enemy")
+local Utils = require("src.utils")
 
 EnemyDrugs = Utils.inheritsFrom(Enemy)
 
