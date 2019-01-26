@@ -1,6 +1,11 @@
 local bump = require("lib.bump")
 local Player = require("src.player")
-local Enemy = require("src.enemy")
+local EnemyDoubt = require("src.enemyDoubt")
+local EnemyDrugs = require("src.enemyDrugs")
+local EnemyDeath = require("src.enemyDeath")
+local TowerConversation = require("src.towerConversation")
+local TowerMedication = require("src.towerMedication")
+local TowerPet = require("src.towerPet")
 local Hotbar = require("src.hotbar")
 local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
@@ -22,13 +27,10 @@ function Scene:new()
     self.player = Player:new()
     scn:addActor(self.player)
 
-    scn:addActor(EnemyDeath:new(self.player), 250, 0)
-    scn:addActor(EnemyError:new(self.player),0, 250)
-    scn:addActor(TowerA:new(), 250, 250)
-
     self.hotbar = Hotbar:new()
-    scn.healthbar = Healthbar:new()
-    scn.healthbar:setScene(self)
+
+    self.healthbar = Healthbar:new()
+    self.healthbar:setScene(self)
 
     love.mouse.setCursor(love.mouse.newCursor("assets/cursor-good.png"))
 
@@ -57,7 +59,6 @@ end
 
 function Scene:draw()
     local severity = 100 - self.player.health
-    self.player.health = self.player.health - 0.5
     if ( not (self.cursorSwitched) and severity >= 100) then
         love.mouse.setCursor(love.mouse.newCursor("assets/cursor.png"))
         self.cursorSwitched = true

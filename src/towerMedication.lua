@@ -5,7 +5,7 @@ TowerA = Utils.inheritsFrom(Tower)
 
 function TowerA:new()
   local ta = self.create()
-  Tower.new(ta, "assets/tower.png")
+  Tower.new(ta, "assets/pill.png")
   return ta
 end
 
