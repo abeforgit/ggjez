@@ -19,6 +19,10 @@ function Scene:new()
     self.player = Player:new()
     scn:addActor(self.player)
     love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
+
+    scn:addActor(EnemyDeath:new(self.player), 250, 0)
+    scn:addActor(EnemyError:new(self.player),0, 250)
+    scn:addActor(TowerA:new(), 250, 250)
     return scn
 end
 
@@ -57,19 +61,19 @@ function Scene:update(dt)
 end
 
 function Scene:mousereleased()
-    self.player:mousepressed()
-    self.player:mousereleased()
-    self.player:keypressed()
-    self.player:keyreleased()
+    return self.player:mousereleased()
 end
 
 function Scene:mousepressed()
+    return self.player:mousepressed()
 end
 
 function Scene:keypressed()
+    return self.player:keypressed()
 end
 
 function Scene:keyreleased()
+    return self.player:keyreleased()
 end
 
 return Scene
