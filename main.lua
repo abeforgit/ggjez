@@ -1,11 +1,10 @@
-Scene = require("src.scene")
-Player = require("src.player")
-Tower = require("src.tower")
+local Scene = require("src.scene")
+local Player = require("src.player")
+local Tower = require("src.tower")
 
 function love.load()
     scn = Scene:new()
     scn:addActor(Player:new())
-    scn:addActor(Tower:new())
 end
 
 function love.update(dt)

@@ -1,4 +1,4 @@
-Tower = {
+local Tower = {
     x = 100,
     y = 100,
     img = nil

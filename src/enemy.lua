@@ -1,4 +1,4 @@
-Enemy = {
+local Enemy = {
   health = 100,
   image = nil,
   speed = 100

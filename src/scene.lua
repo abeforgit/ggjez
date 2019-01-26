@@ -1,21 +1,24 @@
-Player = require("src.player")
-Enemy = require("src.enemy")
+local bump = require("lib.bump")
+local Player = require("src.player")
+local Enemy = require("src.enemy")
 
-Scene = {
-    actors = {}
+local Scene = {
+    actors = {},
+    world = nil
 }
 
 function Scene:new() 
+
     local scn = {}
     setmetatable(scn, self) 
     self.__index = self
-    self.actors[1] = Player:new()
-    self.actors[2] = Enemy:new(0,0, self.actors[1])
+    self.world = bump.newWorld()
     return scn
 end
 
 function Scene:addActor(actor)
     table.insert( self.actors, actor )
+    actor.setWorld(self.world)
 end
 
 
