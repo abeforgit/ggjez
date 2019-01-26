@@ -8,16 +8,15 @@ local Tower = require("src.tower")
 function love.load()
     scn = Scene:new()
     local player = Player:new()
-    love.mousereleased = player.mousereleased
+    love.mousereleased = player:mousereleased()
     love.handlers.keypressed = player:keypressed()
     love.keyreleased = player:keyreleased()
-
-    love.mousepressed = player.mousepressed
+    love.mousepressed = player:mousepressed()
  
     scn:addActor(player)
     scn:addActor(EnemyDeath:new(player))
     scn:addActor(EnemyError:new(player))
-    scn:addActor(Tower:new())
+    scn:addActor(Tower:new(250, 250))
 end
 
 function love.update(dt)
