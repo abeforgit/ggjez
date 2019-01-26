@@ -23,6 +23,8 @@ function Scene:new()
     scn:addActor(EnemyDeath:new(self.player), 250, 0)
     scn:addActor(EnemyError:new(self.player),0, 250)
     scn:addActor(TowerA:new(), 250, 250)
+
+    self.hotbar = Hotbar:new()
     return scn
 end
 
@@ -51,6 +53,7 @@ function Scene:draw()
         actor:draw()
     end
     Glitches.glitchOverlay(severity)
+    self.hotbar:draw()
 end
 
 function Scene:update(dt)
