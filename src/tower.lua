@@ -6,13 +6,10 @@ local Vector = require("lib.hump.vector")
 
 Tower.health = 100
 Tower.range = 200
-Tower.width = 128
-Tower.height = 128
 Tower.damage = 10
 Tower.attackTimer = 0
 Tower.attacksPerSecond = 1
-rangeWidth = Tower.width + Tower.range
-rangeHeight = Tower.height + Tower.range 
+Tower.visionRect = nil
 Tower.time = 0
 
 function Tower:new(imgPath)
@@ -24,35 +21,29 @@ end
 
 function Tower:setScene(scn)
     self.scene = scn
-    scn.world:add(self, self.x, self.y, self.width, self.height)
-end
-
-function Tower:draw()
-    love.graphics.draw(self.img, self.x, self.y)
-    love.graphics.rectangle("line", self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
+    self.visionRect = {
+        l = self.x - self.range/2,
+        t = self.y - self.range/2,
+        w = self.w + self.range,
+        h = self.h + self.range
+    }
+    scn.world:add(self, self.x, self.y, self.w, self.h)
 end
 
 function Tower:update(dt)
     self.attackTimer = self.attackTimer + dt
-    local items, len = self.scene.world:queryRect(self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight, 
+    local l, t, w, h = util.unpackRect(self.visionRect)
+    local items, len = self.scene.world:queryRect(l, t, w, h,
     function(item) 
         if item.type == "enemy" then
-            if self.attackTimer > self.attacksPerSecond then
-                self.attackTimer = 0
-                self:attack(Vector.new(item.x, item.y))
-            end
+            return "cross"
         end
         return false 
     end)
+    self.attack(items)
 end
 
-function Tower:attack(target)
-    self.scene.world:queryPoint(target.x, target.y, 
-    function(item)
-        if item.type == "enemy" then
-        item:takeDamage(self.damage)
-        end
-    end)
+function Tower:attack(targets)
 end
 
 

@@ -61,8 +61,8 @@ end
 
 function Player:spawnTower(x, y)
     local twr = towers[self.selectedTower]:new()
-    upperX = x - twr.width/2
-    upperY = y - twr.height/2
+    upperX = x - twr.w/2
+    upperY = y - twr.h/2
     self.scene:addActor(twr, upperX, upperY)
 end
 
@@ -103,6 +103,22 @@ function Player:keyreleased(key, scancode, isrepeat)
         elseif util.rightKeys[key] then
             self.keyspressed = self.keyspressed - 1
             self.moveVec = self.moveVec - self.vecs.right
+        end
+    end
+end
+
+function Player:wheelmoved(x, y)
+    return function (x, y)
+        if y > 0 then
+            self.selectedTower = self.selectedTower + 1
+            if self.selectedTower > #towers then
+                self.selectedTower = #towers
+            end
+        else
+            self.selectedTower = self.selectedTower - 1
+            if self.selectedTower < 1 then
+                self.selectedTower = 1
+            end
         end
     end
 end

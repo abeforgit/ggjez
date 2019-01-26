@@ -2,13 +2,15 @@ local bump = require("lib.bump")
 local Player = require("src.player")
 local Enemy = require("src.enemy")
 local Hotbar = require("src.hotbar")
+local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
 
 local Scene = {
     actors = {},
     world = nil,
     player = nil,
-    hotbar = nil
+    hotbar = nil,
+    healthbar = nil
 }
 
 function Scene:new() 
@@ -18,13 +20,16 @@ function Scene:new()
     self.world = bump.newWorld()
     self.player = Player:new()
     scn:addActor(self.player)
-    love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
 
     scn:addActor(EnemyDeath:new(self.player), 250, 0)
     scn:addActor(EnemyError:new(self.player),0, 250)
     scn:addActor(TowerA:new(), 250, 250)
 
     self.hotbar = Hotbar:new()
+    scn.healthbar = Healthbar:new()
+    scn.healthbar:setScene(self)
+
+    love.window.setFullscreen(true)
     return scn
 end
 
@@ -34,6 +39,7 @@ function Scene:addActor(actor, x, y)
     table.insert(self.actors, actor)
     actor:setScene(self)
 end
+
 function Scene:removeActor(actor)
     local ind = nil
     for i, v in ipairs(self.actors) do
@@ -47,13 +53,16 @@ function Scene:removeActor(actor)
 end
 
 function Scene:draw()
-    local severity = 0
+    local severity = 100 - self.player.health
+    Glitches.setBackground(severity)
+    Glitches.moveMouse(severity)
     Glitches.screenShake(severity)
     for _, actor in ipairs(self.actors) do
         actor:draw()
     end
     Glitches.glitchOverlay(severity)
     self.hotbar:draw()
+    self.healthbar:draw()
 end
 
 function Scene:update(dt)
@@ -76,6 +85,10 @@ end
 
 function Scene:keyreleased()
     return self.player:keyreleased()
+end
+
+function Scene:wheelmoved()
+    return self.player:wheelmoved()
 end
 
 return Scene
