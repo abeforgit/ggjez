@@ -5,14 +5,6 @@ local glitchImages = {
   love.graphics.newImage("assets/glitch1.png")
 }
 
-function Glitches.moveMouse(severity)
-  local dx = math.random(severity * 2) - severity
-  local dy = math.random(severity * 2) - severity
-
-  love.mouse.setX(love.mouse.getX() + dx)
-  love.mouse.setY(love.mouse.getY() + dy)
-end
-
 function Glitches.screenShake(severity)
   local dx = math.random(severity * 2) - severity
   local dy = math.random(severity * 2) - severity
