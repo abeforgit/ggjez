@@ -1,4 +1,5 @@
 local Scene = require("src.scene")
+local TitleScreen = require("src.titleScreen")
 local Player = require("src.player")
 local EnemyDeath = require("src.enemyDeath")
 local EnemyError = require("src.enemyError")
@@ -7,7 +8,7 @@ local TowerB = require("src.towerB")
 
 
 function love.load()
-    scn = Scene:new()
+    scn = TitleScreen:new()
     love.mousereleased = scn:mousereleased()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
