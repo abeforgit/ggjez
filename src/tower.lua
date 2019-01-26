@@ -15,9 +15,9 @@ rangeWidth = Tower.width + Tower.range
 rangeHeight = Tower.height + Tower.range 
 Tower.time = 0
 
-function Tower:new()
+function Tower:new(imgPath)
     local twr = self.create()
-    self.img = love.graphics.newImage("assets/tower.png")
+    self.img = love.graphics.newImage(imgPath)
     self.type = "tower"
     return twr
 end
