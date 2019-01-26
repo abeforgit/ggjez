@@ -27,6 +27,8 @@ function Scene:new()
     scn:addActor(TowerA:new(), 250, 250)
     scn.healthbar = Healthbar:new()
     scn.healthbar:setScene(self)
+
+    love.window.setFullscreen(true)
     return scn
 end
 
