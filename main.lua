@@ -15,8 +15,8 @@ function love.load()
     love.mousepressed = player.mousepressed
  
     scn:addActor(player)
-    -- scn:addActor(EnemyDeath:new(player))
-    -- scn:addActor(EnemyError:new(player))
+    scn:addActor(EnemyDeath:new(player))
+    scn:addActor(EnemyError:new(player))
     scn:addActor(Tower:new())
 end
 
