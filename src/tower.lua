@@ -40,7 +40,12 @@ function Tower:update(dt)
         end
         return false 
     end)
-    self.attack(items)
+    if(len > 0) then
+        if self.attackTimer > self.attacksPerSecond then
+            self:attack(items)
+            self.attackTimer = 0
+        end
+    end
 end
 
 function Tower:attack(targets)

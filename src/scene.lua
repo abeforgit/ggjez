@@ -23,8 +23,8 @@ function Scene:new()
     scn:addActor(self.player)
 
     scn:addActor(EnemyDeath:new(self.player), 250, 0)
-    scn:addActor(EnemyError:new(self.player),0, 250)
-    scn:addActor(TowerA:new(), 250, 250)
+    -- scn:addActor(EnemyError:new(self.player),0, 250)
+    -- scn:addActor(TowerA:new(), 250, 250)
 
     self.hotbar = Hotbar:new()
     scn.healthbar = Healthbar:new()
@@ -57,7 +57,7 @@ end
 
 function Scene:draw()
     local severity = 100 - self.player.health
-    self.player.health = self.player.health - 0.5
+    -- self.player.health = self.player.health - 0.5
     if ( not (self.cursorSwitched) and severity >= 100) then
         love.mouse.setCursor(love.mouse.newCursor("assets/cursor.png"))
         self.cursorSwitched = true
