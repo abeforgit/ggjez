@@ -17,7 +17,7 @@ function love.load()
     scn:addActor(player)
     scn:addActor(EnemyDeath:new(player), 250, 0)
     scn:addActor(EnemyError:new(player),0, 250)
-    scn:addActor(Tower:new(250, 250), 250, 250)
+    scn:addActor(TowerA:new(), 250, 250)
 end
 
 function love.update(dt)
