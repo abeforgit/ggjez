@@ -9,11 +9,8 @@ Player.yVel = 0
 Player.speed = 300
 
 function Player:new()
-    local plr = {}
-    setmetatable(plr, self)
-    self.__index = self
+    plr = self.create()
     self.image = love.graphics.newImage("assets/player.png")
-
     return plr
 end
 

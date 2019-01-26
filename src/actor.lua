@@ -5,11 +5,6 @@ local Actor = {
     y = 0
 }
 
-function Actor:new()
-    act = {}
-    setmetatable(act, self)
-    self.__index = self
-end
 
 function Actor:setScene(scn)
     self.scene = scn
