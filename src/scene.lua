@@ -54,7 +54,6 @@ end
 function Scene:draw()
     local severity = 100 - self.player.health
     Glitches.setBackground(severity)
-    self.player.health = self.player.health - 0.1
     Glitches.moveMouse(severity)
     Glitches.screenShake(severity)
     for _, actor in ipairs(self.actors) do
