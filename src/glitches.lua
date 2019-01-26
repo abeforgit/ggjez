@@ -5,15 +5,17 @@ local glitchImages = {
   love.graphics.newImage("assets/glitch1.png")
 }
 
-function Glitches.moveMouse()
-  love.mouse.setX(math.random(100))
-  love.mouse.setY(math.random(100))
+function Glitches.moveMouse(severity)
+  local dx = math.random(severity * 2) - severity
+  local dy = math.random(severity * 2) - severity
+
+  love.mouse.setX(love.mouse.getX() + dx)
+  love.mouse.setY(love.mouse.getY() + dy)
 end
 
 function Glitches.screenShake(severity)
-  local modifier = severity / 2
-  local dx = math.random() * modifier
-  local dy = math.random() * modifier
+  local dx = math.random(severity * 2) - severity
+  local dy = math.random(severity * 2) - severity
   love.graphics.translate(dx, dy)
 end
 
@@ -30,4 +32,9 @@ function Glitches.glitchOverlay(severity)
   end
   love.graphics.setColor(r,g,b,a)
 end
+
+function Glitches.setBackground(severity)
+  love.graphics.setBackgroundColor((95 / 255) * (1 + severity/100), (205 / 255) * (1 + severity/100), (228 / 255) * (1 + severity/100))
+end
+
 return Glitches

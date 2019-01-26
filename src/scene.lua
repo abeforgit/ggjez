@@ -20,7 +20,6 @@ function Scene:new()
     self.world = bump.newWorld()
     self.player = Player:new()
     scn:addActor(self.player)
-    love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
 
     scn:addActor(EnemyDeath:new(self.player), 250, 0)
     scn:addActor(EnemyError:new(self.player),0, 250)
@@ -54,7 +53,9 @@ end
 
 function Scene:draw()
     local severity = 100 - self.player.health
-    self.player.health = self.player.health - 0.5
+    Glitches.setBackground(severity)
+    self.player.health = self.player.health - 0.1
+    Glitches.moveMouse(severity)
     Glitches.screenShake(severity)
     for _, actor in ipairs(self.actors) do
         actor:draw()
