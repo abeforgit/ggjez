@@ -2,10 +2,17 @@ util = require("src.utils")
 Actor = require("src.actor")
 Vector = require("lib.hump.vector")
 Tower = require("src.tower")
+TowerA = require("src.towerA")
+TowerB = require("src.towerB")
 
 local Player = util.inheritsFrom(Actor)
 
 local spd = 300
+
+towers = {
+    TowerA,
+    TowerB
+}
 
 Player.health = 100
 Player.xVel = 0
@@ -13,6 +20,7 @@ Player.yVel = 0
 Player.speed = spd
 Player.moveVec = Vector.new()
 Player.keyspressed = 0
+Player.selectedTower = 2
 Player.vecs = {
     up = Vector.new(0, -spd),
     down = Vector.new(0, spd),
@@ -45,14 +53,17 @@ end
 function Player:mousepressed()
     return function (x, y, button)
         if button == 1 then
-            local twr = Tower:new()
-            upperX = x - twr.width/2
-            upperY = y - twr.height/2
-            twr:setX(upperX)
-            twr:setY(upperY)
-            self.scene:addActor(twr, twr.x, twr.y)
+            self:spawnTower(x, y)
+ 
         end
     end
+end
+
+function Player:spawnTower(x, y)
+    local twr = towers[self.selectedTower]:new()
+    upperX = x - twr.width/2
+    upperY = y - twr.height/2
+    self.scene:addActor(twr, upperX, upperY)
 end
 
 function Player:mousereleased()
