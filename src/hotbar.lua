@@ -1,21 +1,43 @@
 Hotbar = {
-    slot1 = nil,
-    slot2 = nil,
-    slot3 = nil,
-    img = love.graphics.newImage("assets/bettergui.png")
+    edgeWidth = 35,
+    gapWidth = 20,
+
+    towers = {
+        TowerA:new(),
+        TowerB:new(),
+        TowerB:new()
+    },
+
+    barX = 0,
+    barLength = 0,
+    barY = 15,
+    barHeight = 60
 }
 
 function Hotbar:new()
     local hb = {}
     setmetatable(hb, self) 
     self.__index = self
+    self.barLength = self:calculateLength()
+    self.barX = self:calculateX()
     return hb
 end
 
 function Hotbar:draw()
-    local width = love.graphics.getWidth()
-    local newX = width/2 - self.img:getWidth()/2  
-    love.graphics.draw(self.img, newX, 0)
+    love.graphics.rectangle("fill", self.barX, self.barY, self.barLength, self.barHeight)
+    for i, type in ipairs(self.towers) do
+        local posX = self.barX + self.edgeWidth + (i - 1) * (self.barHeight + self.gapWidth)
+        love.graphics.draw(self.towers[i].img, posX, self.barY, 0, 0.465)
+    end
+end
+
+function Hotbar:calculateLength()
+    return 2*self.edgeWidth + (#self.towers)*self.barHeight + (#self.towers - 1)*self.gapWidth
+end
+
+function Hotbar:calculateX()
+   screenMiddle = love.graphics.getWidth()/2
+   return screenMiddle - self.barLength/2 
 end
 
 return Hotbar
