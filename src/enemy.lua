@@ -3,12 +3,11 @@ local Actor = require("src.actor")
 
 Enemy = Utils.inheritsFrom(Actor)
 
-function Enemy:new(target, imagePath)
+function Enemy:new(imagePath)
   local enemy = self.create()
   self.img = love.graphics.newImage(imagePath)
   self.speed = 100
   self.health = 100
-  self.target = target
   self.type = "enemy"
   return enemy
 end
@@ -18,8 +17,8 @@ function Enemy:print()
 end
 
 function Enemy:update(dt)
-  local dx = self.target.x - self.x
-  local dy = self.target.y - self.y
+  local dx = self.scene.player.x - self.x
+  local dy = self.scene.player.y - self.y
   local length = math.sqrt(dx*dx + dy*dy)
   if length ~= 0 then
     local targetX = self.x + (dx / length) * dt * self.speed

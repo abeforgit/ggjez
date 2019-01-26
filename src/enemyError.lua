@@ -3,9 +3,9 @@ Utils = require("src.utils")
 
 EnemyError = Utils.inheritsFrom(Enemy)
 
-function EnemyError:new(target)
+function EnemyError:new()
   local ee = self.create()
-  Enemy.new(ee, target,"assets/err.png")
+  Enemy.new(ee, "assets/err.png")
   ee.speed = 200
   return ee
 end
