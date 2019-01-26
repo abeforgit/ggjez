@@ -44,7 +44,6 @@ function Scene:removeActor(actor)
     self.world:remove(actor)
 end
 
-
 function Scene:draw()
     local severity = 0
     Glitches.screenShake(severity)
