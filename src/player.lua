@@ -17,7 +17,6 @@ function Player:new()
     return plr
 end
 
-
 function Player:update(dt)
     self:handleKeys()
     self.x = self.x + self.xVel * dt
