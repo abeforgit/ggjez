@@ -1,12 +1,12 @@
 local Tower = require("src.tower")
 local Utils = require("src.utils")
 
-TowerA = Utils.inheritsFrom(Tower)
+TowerMedication = Utils.inheritsFrom(Tower)
 
-function TowerA:new()
+function TowerMedication:new()
   local ta = self.create()
   Tower.new(ta, "assets/pill.png")
   return ta
 end
 
-return TowerA
+return TowerMedication
