@@ -76,4 +76,8 @@ function Scene:keyreleased()
     return self.player:keyreleased()
 end
 
+function Scene:wheelmoved()
+    return self.player:wheelmoved()
+end
+
 return Scene
