@@ -7,7 +7,6 @@ local Actor = {
     h = 128
 }
 
-
 function Actor:setScene(scn)
     self.scene = scn
     self.scene.world:add(self, self.x, self.y, self.w, self.h)

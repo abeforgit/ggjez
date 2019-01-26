@@ -8,7 +8,6 @@ local Scene = {
 }
 
 function Scene:new() 
-
     local scn = {}
     setmetatable(scn, self) 
     self.__index = self

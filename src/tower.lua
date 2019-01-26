@@ -1,23 +1,44 @@
-local Tower = {
-    x = 100,
-    y = 100,
-    img = nil
-}
+local util = require("src.utils")
+local Actor = require("src.actor")
+
+local Tower = util.inheritsFrom(Actor)
+
+Tower.x = 250
+Tower.y = 250
+Tower.health = 100
+Tower.range = 100
+Tower.width = 128
+Tower.height = 128 
 
 function Tower:new()
-    local twr = {}
-    setmetatable(twr, self)
-    self.__index = self
+    local twr = self.create()
     self.img = love.graphics.newImage("assets/tower.png")
     return twr
 end
 
-function Tower:update(dt)
-    -- check if enemies in range
+function Tower:setScene(scn)
+    self.scene = scn
+    scn.world:add(self, self.x, self.y, self.width, self.height)
 end
 
 function Tower:draw()
     love.graphics.draw(self.img, self.x, self.y)
+    local rangeWidth = self.width + self.range
+    local rangeHeight = self.height + self.range 
+    love.graphics.rectangle("line", self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
+end
+
+function Tower:update(dt)
+    local rangeWidth = self.width + self.range
+    local rangeHeight = self.height + self.range 
+
+    local items, len = self.scene.world:queryRect(self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
+
+    for i = 1, len do
+        print(i)
+        print(os.time())
+        print(items[i])
+    end
 end
 
 return Tower
