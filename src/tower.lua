@@ -10,6 +10,9 @@ Tower.range = 100
 Tower.width = 128
 Tower.height = 128 
 
+rangeWidth = Tower.width + Tower.range
+rangeHeight = Tower.height + Tower.range 
+
 function Tower:new()
     local twr = self.create()
     self.img = love.graphics.newImage("assets/tower.png")
@@ -23,15 +26,10 @@ end
 
 function Tower:draw()
     love.graphics.draw(self.img, self.x, self.y)
-    local rangeWidth = self.width + self.range
-    local rangeHeight = self.height + self.range 
     love.graphics.rectangle("line", self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
 end
 
 function Tower:update(dt)
-    local rangeWidth = self.width + self.range
-    local rangeHeight = self.height + self.range 
-
     local items, len = self.scene.world:queryRect(self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
 
     for i = 1, len do
