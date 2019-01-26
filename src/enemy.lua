@@ -27,12 +27,26 @@ function Enemy:update(dt)
     local targetX = self.x + (dx / length) * dt * self.speed
     local targetY = self.y + (dy / length) * dt * self.speed
     local playerFilter = function(item, other)
-      return "bounce"
+      if item.type ~= nil then
+        return "bounce"
+      end
+      return "cross"
     end
     local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, playerFilter)
     self.x = newX
     self.y = newY
   end
+end
+
+function Enemy:takeDamage(dmg)
+  self.health = self.health - dmg
+  if self.health < 0 then
+    self:die()
+  end
+end
+
+function Enemy:die()
+  self.scene:removeActor(self)
 end
 
 return Enemy
