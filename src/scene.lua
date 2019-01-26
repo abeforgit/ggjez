@@ -8,7 +8,6 @@ local Scene = {
 }
 
 function Scene:new() 
-
     local scn = {}
     setmetatable(scn, self) 
     self.__index = self
@@ -18,7 +17,7 @@ end
 
 function Scene:addActor(actor)
     table.insert( self.actors, actor )
-    actor.setScene(self)
+    actor:setScene(self)
 end
 
 

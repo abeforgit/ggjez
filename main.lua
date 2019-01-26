@@ -4,8 +4,8 @@ local Tower = require("src.tower")
 
 function love.load()
     scn = Scene:new()
+    scn:addActor(Tower:new())
     scn:addActor(Player:new())
-    -- scn:addActor(Tower:new())
 end
 
 function love.update(dt)

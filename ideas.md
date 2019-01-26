@@ -26,4 +26,4 @@
 
 - Towers can turn against you after some time (e.g. A pet that dies)
 - Towers can "Fail" and turn against you (e.g. A conversation that's not productive)
-- 
+- Change cursor position when losing control
