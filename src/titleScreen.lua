@@ -7,14 +7,14 @@ local Scene = require("src.scene")
 
 
 local TitleScreen = {
-   playButton = nil,
-   quitButton = nil,
-   width = nil,
-   height = nil,
-   playButtonX = nil,
-   playButtonY = nil,
-   quitButtonX = nil,
-   quitButtonY = nil
+    playButton = nil,
+    quitButton = nil,
+    width = nil,
+    height = nil,
+    playButtonX = nil,
+    playButtonY = nil,
+    quitButtonX = nil,
+    quitButtonY = nil
 }
 
 function startGame()
@@ -30,34 +30,17 @@ function quitGame()
 end
 
 function TitleScreen:new() 
+
     local scn = {}
     setmetatable(scn, self) 
     self.__index = self
     love.window.setTitle("Main menu")
     love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
     playButton = love.graphics.newImage("assets/play.png")
-    quitButton = love.graphics.newImage("assets/death.png")
+    quitButton = love.graphics.newImage("assets/quit.png")
     width = playButton:getWidth()
     height = playButton:getHeight()
     return scn
-end
-
-function TitleScreen:addActor(actor, x, y)
-    actor.x = x or 0
-    actor.y = y or 0
-    table.insert(self.actors, actor)
-    actor:setScene(self)
-end
-function TitleScreen:removeActor(actor)
-    local ind = nil
-    for i, v in ipairs(self.actors) do
-        if v == actor then
-            ind = i
-            break
-        end
-    end
-    table.remove( self.actors, ind)
-    self.world:remove(actor)
 end
 
 
@@ -67,15 +50,13 @@ function TitleScreen:draw()
     quitButtonX = love.graphics.getWidth() / 2 
     quitButtonY = love.graphics.getHeight() / 2 + 200
     love.graphics.draw(playButton, playButtonX , playButtonY, 0, 1, 1, width / 2, height / 2)
-    love.graphics.draw(quitButton, quitButtonX, quitButtonY, 0, 1, 1, quitButton:getWidth() / 2, quitButton:getHeight() / 2)
+    love.graphics.draw(quitButton, quitButtonX, quitButtonY, 0, 0.5, 0.5, quitButton:getWidth() / 2, quitButton:getHeight() / 2)
 end
 
 function TitleScreen:update(dt)
-    
 end
 
 function TitleScreen:mousereleased()
-    -- return self.player:mousereleased()
 end
 
 function TitleScreen:mousepressed()
@@ -96,7 +77,6 @@ function TitleScreen:mousepressed()
         end
     end
 
-    -- return self.player:mousepressed()
 end
 
 function calculateDist(x, y, imgX, imgY)
@@ -106,11 +86,9 @@ function calculateDist(x, y, imgX, imgY)
 end
 
 function TitleScreen:keypressed()
-    -- return self.player:keypressed()
 end
 
 function TitleScreen:keyreleased()
-    -- return self.player:keyreleased()
 end
 
 return TitleScreen
