@@ -12,6 +12,7 @@ Player.xVel = 0
 Player.yVel = 0
 Player.speed = spd
 Player.moveVec = Vector.new()
+Player.keyspressed = 0
 Player.vecs = {
     up = Vector.new(0, -spd),
     down = Vector.new(0, spd),
@@ -59,12 +60,17 @@ end
 function Player:keypressed()
     return function (key, scancode, isrepeat)
         if util.upKeys[key] then
+            self.keyspressed = self.keyspressed + 1
             self.moveVec = self.moveVec + self.vecs.up
         elseif util.downKeys[key] then
+            self.keyspressed = self.keyspressed + 1
+
             self.moveVec = self.moveVec + self.vecs.down
         elseif util.leftKeys[key] then
+            self.keyspressed = self.keyspressed + 1
             self.moveVec = self.moveVec + self.vecs.left
         elseif util.rightKeys[key] then
+            self.keyspressed = self.keyspressed + 1
             self.moveVec = self.moveVec + self.vecs.right
         end
     end 
@@ -74,12 +80,16 @@ end
 function Player:keyreleased(key, scancode, isrepeat)
     return function (key, scancode, isrepeat)
         if util.upKeys[key] then
+            self.keyspressed = self.keyspressed -1
             self.moveVec = self.moveVec - self.vecs.up
         elseif util.downKeys[key] then
+            self.keyspressed = self.keyspressed - 1
             self.moveVec = self.moveVec - self.vecs.down
         elseif util.leftKeys[key] then
+            self.keyspressed = self.keyspressed - 1
             self.moveVec = self.moveVec - self.vecs.left
         elseif util.rightKeys[key] then
+            self.keyspressed = self.keyspressed - 1
             self.moveVec = self.moveVec - self.vecs.right
         end
     end
