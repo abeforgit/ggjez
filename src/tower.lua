@@ -6,7 +6,8 @@ local Tower = util.inheritsFrom(Actor)
 Tower.health = 100
 Tower.range = 100
 Tower.width = 128
-Tower.height = 128 
+Tower.height = 128
+Tower.damage = 10
 
 rangeWidth = Tower.width + Tower.range
 rangeHeight = Tower.height + Tower.range 
@@ -30,6 +31,16 @@ end
 function Tower:update(dt)
     local items, len = self.scene.world:queryRect(self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
 end
+
+function Tower:attack(target)
+    self.scene.world:queryPoint(target.x, target.y, 
+    function(item)
+        if item.type == "enemy" then
+        item.takeDamage(self.damage)
+        end
+    end)
+end
+
 
 function Tower:setX(x)
     self.x = x
