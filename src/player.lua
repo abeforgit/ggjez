@@ -1,11 +1,11 @@
 util = require("src.utils")
 Actor = require("src.actor")
 Vector = require("lib.hump.vector")
+Tower = require("src.tower")
 
 local Player = util.inheritsFrom(Actor)
 
 local spd = 300
-
 
 Player.health = 100
 Player.xVel = 0
@@ -18,6 +18,7 @@ Player.vecs = {
     left = Vector.new(-spd, 0),
     right = Vector.new(spd, 0)
 }
+
 function Player:new()
     plr = self.create()
     self.image = love.graphics.newImage("assets/player.png")
@@ -39,11 +40,20 @@ function Player:draw()
     love.graphics.draw(self.image, self.x, self.y)
 end
 
-function Player.mousepressed()
-    print("click")
+function Player:mousepressed()
+    return function (x, y, button)
+        if button == 1 then
+            local twr = Tower:new()
+            upperX = x - twr.width/2
+            upperY = y - twr.height/2
+            twr:setX(upperX)
+            twr:setY(upperY)
+            self.scene:addActor(twr, twr.x, twr.y)
+        end
+    end
 end
 
-function Player.mousereleased()
+function Player:mousereleased()
 end
 
 function Player:keypressed()
