@@ -1,8 +1,7 @@
-local Enemy = {
-  health = 100,
-  image = nil,
-  speed = 100
-}
+Utils = require("src.utils")
+Actor = require("src.actor")
+
+Enemy = Utils.inheritsFrom(Actor)
 
 function Enemy:new(x, y, player)
   local plr = {}
@@ -11,6 +10,8 @@ function Enemy:new(x, y, player)
   self.image = love.graphics.newImage("assets/enemy.png")
   self.x = x
   self.y = y
+  self.speed = 100
+  self.health = 100
   self.target = player
   return plr
 end
