@@ -1,11 +1,15 @@
+local TowerConversation = require("src.towerConversation")
+local TowerMedication = require("src.towerMedication")
+local TowerPet = require("src.towerPet")
+
 Hotbar = {
     edgeWidth = 35,
     gapWidth = 20,
 
     towers = {
-        TowerA:new(),
-        TowerB:new(),
-        TowerB:new()
+        TowerConversation,
+        TowerMedication,
+        TowerPet
     },
 
     barX = 0,
@@ -24,10 +28,10 @@ function Hotbar:new()
 end
 
 function Hotbar:draw()
-    love.graphics.rectangle("fill", self.barX, self.barY, self.barLength, self.barHeight)
+    love.graphics.rectangle("line", self.barX, self.barY, self.barLength, self.barHeight)
     for i, type in ipairs(self.towers) do
         local posX = self.barX + self.edgeWidth + (i - 1) * (self.barHeight + self.gapWidth)
-        love.graphics.draw(self.towers[i].img, posX, self.barY, 0, 0.465)
+        love.graphics.draw(self.towers[i]:new().img, posX, self.barY, 0, 0.465)
     end
 end
 
