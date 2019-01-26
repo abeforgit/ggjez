@@ -5,13 +5,15 @@ local Tower = util.inheritsFrom(Actor)
 
 Tower.health = 100
 
-function Tower:new(scene)
-    local twr = {}
-    setmetatable(twr, self)
-    self.__index = self
+function Tower:new()
+    twr = self.create()
     self.img = love.graphics.newImage("assets/tower.png")
-    
     return twr
+end
+
+function Tower:setScene(scn)
+    self.scene = scn
+    scn.world:add(self, self.x, self.y, 128, 128)
 end
 
 function Tower:update(dt)

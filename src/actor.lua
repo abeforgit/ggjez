@@ -5,7 +5,6 @@ local Actor = {
     y = 0
 }
 
-
 function Actor:setScene(scn)
     self.scene = scn
 end
