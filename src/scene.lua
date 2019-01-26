@@ -23,6 +23,17 @@ function Scene:addActor(actor, x, y)
     table.insert( self.actors, actor )
     actor:setScene(self)
 end
+function Scene:removeActor(actor)
+    local ind = nil
+    for i, v in ipairs(self.actors) do
+        if v == actor then
+            ind = i
+            break
+        end
+    end
+    table.remove( self.actors, ind)
+    self.world:remove(actor)
+end
 
 
 function Scene:draw()
