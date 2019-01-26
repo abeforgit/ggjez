@@ -1,5 +1,6 @@
-Scene = require("src.scene")
-Player = require("src.player")
+local Scene = require("src.scene")
+local Player = require("src.player")
+local Tower = require("src.tower")
 
 function love.load()
     scn = Scene:new()

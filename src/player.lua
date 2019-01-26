@@ -1,23 +1,22 @@
-Player = {
-    health = 100,
-    image = nil,
-    x = 100,
-    y = 100,
-    xVel = 0,
-    yVel = 0,
-    speed = 300
-}
+util = require("src.utils")
+Actor = require("src.actor")
+
+local Player = util.inheritsFrom(Actor)
+
+Player.health = 100
+Player.xVel = 0
+Player.yVel = 0
+Player.speed = 300
+
 function Player:new()
     local plr = {}
     setmetatable(plr, self)
     self.__index = self
     self.image = love.graphics.newImage("assets/player.png")
+
     return plr
 end
 
-function Player:print()
-    print("Player: "..self.health)
-end
 
 function Player:update(dt)
     self:handleKeys()
