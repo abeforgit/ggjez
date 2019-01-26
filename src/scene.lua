@@ -2,13 +2,15 @@ local bump = require("lib.bump")
 local Player = require("src.player")
 local Enemy = require("src.enemy")
 local Hotbar = require("src.hotbar")
+local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
 
 local Scene = {
     actors = {},
     world = nil,
     player = nil,
-    hotbar = nil
+    hotbar = nil,
+    healthbar = nil
 }
 
 function Scene:new() 
@@ -23,6 +25,8 @@ function Scene:new()
     scn:addActor(EnemyDeath:new(self.player), 250, 0)
     scn:addActor(EnemyError:new(self.player),0, 250)
     scn:addActor(TowerA:new(), 250, 250)
+    scn.healthbar = Healthbar:new()
+    scn.healthbar:setScene(self)
     return scn
 end
 
@@ -32,6 +36,7 @@ function Scene:addActor(actor, x, y)
     table.insert(self.actors, actor)
     actor:setScene(self)
 end
+
 function Scene:removeActor(actor)
     local ind = nil
     for i, v in ipairs(self.actors) do
@@ -52,6 +57,7 @@ function Scene:draw()
         actor:draw()
     end
     Glitches.glitchOverlay(severity)
+    self.healthbar:draw()
 end
 
 function Scene:update(dt)
