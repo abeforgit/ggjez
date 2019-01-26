@@ -22,8 +22,14 @@ function Enemy:update(dt)
   local dx = self.target.x - self.x
   local dy = self.target.y - self.y
   local length = math.sqrt(dx*dx + dy*dy)
-  self.x = self.x + (dx / length) * dt * self.speed
-  self.y = self.y + (dy / length) * dt * self.speed
+  local targetX = self.x + (dx / length) * dt * self.speed
+  local targetY = self.y + (dy / length) * dt * self.speed
+  local playerFilter = function(item, other)
+    return "bounce"
+  end
+  local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, playerFilter)
+  self.x = newX
+  self.y = newY
 end
 
 function Enemy:draw() 
