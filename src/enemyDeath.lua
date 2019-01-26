@@ -5,7 +5,7 @@ EnemyDeath = Utils.inheritsFrom(Enemy)
 
 function EnemyDeath:new(target)
   local ed = self.create()
-  Enemy.new(ed, 100, 100, target,"assets/death.png")
+  Enemy.new(ed, target,"assets/death.png")
   return ed
 end
 
