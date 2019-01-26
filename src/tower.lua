@@ -3,8 +3,10 @@ local Actor = require("src.actor")
 
 local Tower = util.inheritsFrom(Actor)
 
+Tower.x = 250
+Tower.y = 250
 Tower.health = 100
-Tower.range = 20
+Tower.range = 100
 Tower.width = 128
 Tower.height = 128 
 
@@ -21,18 +23,21 @@ end
 
 function Tower:draw()
     love.graphics.draw(self.img, self.x, self.y)
+    local rangeWidth = self.width + self.range
+    local rangeHeight = self.height + self.range 
+    love.graphics.rectangle("line", self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
 end
 
 function Tower:update(dt)
-    --  love.mouse.setX(math.random(100))
-    --  love.mouse.setY(math.random(100))
-    local rangeX = self.x + self.range
-    local rangeY = self.y + self.range
+    local rangeWidth = self.width + self.range
+    local rangeHeight = self.height + self.range 
 
-    local items, len = self.scene.world:queryRect(self.x, self.y, rangeX, rangeY)
+    local items, len = self.scene.world:queryRect(self.x - self.range/2, self.y - self.range/2, rangeWidth, rangeHeight)
 
     for i = 1, len do
-        print(items[1])
+        print(i)
+        print(os.time())
+        print(items[i])
     end
 end
 

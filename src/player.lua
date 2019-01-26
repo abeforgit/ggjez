@@ -18,6 +18,7 @@ function Player:update(dt)
     self:handleKeys()
     self.x = self.x + self.xVel * dt
     self.y = self.y + self.yVel * dt
+    self.scene.world:update(self, self.x, self.y)
 end
 
 function Player:draw() 
@@ -39,6 +40,12 @@ function Player:handleKeys()
     end
 
 end
+
+function Player:setScene(scn)
+    self.scene = scn
+    scn.world:add(self, self.x, self.y, 128, 128)
+end
+
 
 
 return Player
