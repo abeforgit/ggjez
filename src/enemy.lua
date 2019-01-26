@@ -3,17 +3,15 @@ Actor = require("src.actor")
 
 Enemy = Utils.inheritsFrom(Actor)
 
-function Enemy:new(x, y, player)
-  local plr = {}
-  setmetatable(plr, self)
-  self.__index = self
-  self.image = love.graphics.newImage("assets/enemy.png")
+function Enemy:new(x, y, player, imagePath)
+  local enemy = self.create()
+  self.image = love.graphics.newImage(imagePath)
   self.x = x
   self.y = y
   self.speed = 100
   self.health = 100
   self.target = player
-  return plr
+  return enemy
 end
 
 function Enemy:print()
