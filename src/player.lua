@@ -107,6 +107,22 @@ function Player:keyreleased(key, scancode, isrepeat)
     end
 end
 
+function Player:wheelmoved(x, y)
+    return function (x, y)
+        if y > 0 then
+            self.selectedTower = self.selectedTower + 1
+            if self.selectedTower > #towers then
+                self.selectedTower = #towers
+            end
+        else
+            self.selectedTower = self.selectedTower - 1
+            if self.selectedTower < 1 then
+                self.selectedTower = 1
+            end
+        end
+    end
+end
+
 
 
 return Player
