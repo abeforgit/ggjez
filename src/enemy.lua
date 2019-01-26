@@ -3,11 +3,9 @@ local Actor = require("src.actor")
 
 Enemy = Utils.inheritsFrom(Actor)
 
-function Enemy:new(x, y, target, imagePath)
+function Enemy:new(target, imagePath)
   local enemy = self.create()
   self.img = love.graphics.newImage(imagePath)
-  self.x = x
-  self.y = y
   self.speed = 100
   self.health = 100
   self.target = target

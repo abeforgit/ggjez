@@ -13,8 +13,9 @@ function love.load()
     love.keyreleased = scn:keyreleased()
     love.mousepressed = scn:mousepressed()
  
-    scn:addActor(EnemyDeath:new(player))
-    scn:addActor(EnemyError:new(player))
+    scn:addActor(EnemyDeath:new(player), 250, 0)
+    scn:addActor(EnemyError:new(player),0, 250)
+    scn:addActor(TowerA:new(), 250, 250)
 end
 
 function love.update(dt)
