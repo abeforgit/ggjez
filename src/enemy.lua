@@ -11,6 +11,7 @@ function Enemy:new(x, y, target, imagePath)
   self.speed = 100
   self.health = 100
   self.target = target
+  self.type = "enemy"
   return enemy
 end
 

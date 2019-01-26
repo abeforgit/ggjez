@@ -4,7 +4,8 @@ local Actor = {
     x = 0,
     y = 0,
     w = 128,
-    h = 128
+    h = 128,
+    type = "actor"
 }
 
 function Actor:setScene(scn)
