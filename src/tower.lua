@@ -6,11 +6,13 @@ local Tower = util.inheritsFrom(Actor)
 Tower.health = 100
 Tower.range = 100
 Tower.width = 128
-Tower.height = 128 
+Tower.height = 128
+Tower.time = 0
 
 function Tower:new()
     local twr = self.create()
     self.img = love.graphics.newImage("assets/tower.png")
+    self.type = "tower"
     return twr
 end
 
