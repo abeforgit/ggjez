@@ -2,7 +2,8 @@ local Scene = require("src.scene")
 local Player = require("src.player")
 local EnemyDeath = require("src.enemyDeath")
 local EnemyError = require("src.enemyError")
-local Tower = require("src.tower")
+local TowerA = require("src.towerA")
+local TowerB = require("src.towerB")
 
 
 function love.load()
@@ -14,7 +15,6 @@ function love.load()
  
     scn:addActor(EnemyDeath:new(player))
     scn:addActor(EnemyError:new(player))
-    scn:addActor(Tower:new())
 end
 
 function love.update(dt)
