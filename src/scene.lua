@@ -18,7 +18,7 @@ end
 
 function Scene:addActor(actor)
     table.insert( self.actors, actor )
-    actor.setScene(self)
+    actor:setScene(self)
 end
 
 

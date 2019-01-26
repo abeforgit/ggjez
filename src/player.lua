@@ -7,6 +7,7 @@ Player.health = 100
 Player.xVel = 0
 Player.yVel = 0
 Player.speed = 300
+Player.target = nil
 
 function Player:new()
     plr = self.create()
@@ -16,27 +17,29 @@ end
 
 
 function Player:update(dt)
-    self:handleKeys()
-    self.x = self.x + self.xVel * dt
-    self.y = self.y + self.yVel * dt
+    self:handleKeys(dt)
+    if self.target ~= nil then
+        actualX, actualY, cols, len = self.scene.world:move(self, self.target.x, self.target.y, "cross")
+        self.x = actualX
+        self.y = actualY
+    end
 end
 
 function Player:draw() 
     love.graphics.draw(self.image, self.x, self.y)
 end
 
-function Player:handleKeys()
+function Player:handleKeys(dt)
     if love.keyboard.isDown("w") then
-        self.yVel = - self.speed
+        self.target = {x = self.x, y = self.y -(self.speed*dt)}
     elseif(love.keyboard.isDown("s")) then
-        self.yVel =  self.speed
+        self.target =  {x = self.x, y = self.y + (self.speed*dt)}
     elseif(love.keyboard.isDown("a")) then
-        self.xVel = - self.speed
+        self.target = {x = self.x -(self.speed*dt), y = self.y}
     elseif(love.keyboard.isDown("d")) then
-        self.xVel =  self.speed
+        self.target =  {x = self.x +(self.speed*dt), y = self.y}
     else
-        self.xVel = 0
-        self.yVel = 0
+       self.target = nil
     end
 
 end
