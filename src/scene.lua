@@ -1,6 +1,7 @@
 local bump = require("lib.bump")
 local Player = require("src.player")
 local Enemy = require("src.enemy")
+local Glitches = require("src.glitches")
 
 local Scene = {
     actors = {},
@@ -12,6 +13,7 @@ function Scene:new()
     setmetatable(scn, self) 
     self.__index = self
     self.world = bump.newWorld()
+    love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
     return scn
 end
 
@@ -24,9 +26,12 @@ end
 
 
 function Scene:draw()
+    local severity = 0
+    Glitches.screenShake(severity)
     for _, actor in ipairs(self.actors) do
         actor:draw()
     end
+    Glitches.glitchOverlay(severity)
 end
 
 function Scene:update(dt)
