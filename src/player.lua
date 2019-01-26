@@ -6,18 +6,18 @@ local Player = {
     xVel = 0,
     yVel = 0,
     speed = 300,
-    world = nil
+    scene = nil
 }
-function Player:new(wrld)
+function Player:new()
     local plr = {}
     setmetatable(plr, self)
     self.__index = self
     self.image = love.graphics.newImage("assets/player.png")
-    self.world = wrld
+
     return plr
 end
 
-function Player:setWorld(wrld)
+function Player:setScene(wrld)
     self.world = wrld
 end
 
