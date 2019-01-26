@@ -16,27 +16,23 @@ function Tower:new(imgPath)
     local twr = self.create()
     self.img = love.graphics.newImage(imgPath)
     self.type = "tower"
+    return twr
+end
+
+function Tower:setScene(scn)
+    self.scene = scn
     self.visionRect = {
         l = self.x - self.range/2,
         t = self.y - self.range/2,
         w = self.w + self.range,
         h = self.h + self.range
     }
-    return twr
-end
-
-function Tower:setScene(scn)
-    self.scene = scn
     scn.world:add(self, self.x, self.y, self.w, self.h)
-end
-
-function Tower:draw()
-    love.graphics.draw(self.img, self.x, self.y)
 end
 
 function Tower:update(dt)
     self.attackTimer = self.attackTimer + dt
-    l, t, w, h = util.unpackRect(self.visionRect)
+    local l, t, w, h = util.unpackRect(self.visionRect)
     local items, len = self.scene.world:queryRect(l, t, w, h,
     function(item) 
         if item.type == "enemy" then

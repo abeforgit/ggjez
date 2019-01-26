@@ -19,10 +19,9 @@ end
 function Actor:draw()
     love.graphics.draw(self.img, self.x, self.y)
     if self.visionRect then
-        l, t, w, h = util.unpackRect(self.visionRect)
+        local l, t, w, h = util.unpackRect(self.visionRect)
         love.graphics.rectangle("line", l, t, w, h)
     end
-
 end
 
 function Actor:update()
