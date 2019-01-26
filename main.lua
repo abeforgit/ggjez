@@ -4,23 +4,19 @@ local EnemyDeath = require("src.enemyDeath")
 local EnemyError = require("src.enemyError")
 local Tower = require("src.tower")
 
-player = Player:new()
-love.mousereleased = player.mousereleased
-love.keypressed = player:keypressed()
-love.keyreleased = player:keyreleased()
 
 function love.load()
     scn = Scene:new()
-    player = Player:new()
+    local player = Player:new()
     love.mousereleased = player.mousereleased
-    love.handlers.keypressed = player:keypressed(player)
+    love.handlers.keypressed = player:keypressed()
     love.keyreleased = player:keyreleased()
 
     love.mousepressed = player.mousepressed
  
     scn:addActor(player)
-    scn:addActor(EnemyDeath:new(player))
-    scn:addActor(EnemyError:new(player))
+    -- scn:addActor(EnemyDeath:new(player))
+    -- scn:addActor(EnemyError:new(player))
 end
 
 function love.update(dt)

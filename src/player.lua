@@ -25,7 +25,6 @@ end
 
 
 function Player:update(dt)
-
     if self.moveVec ~= nil then
         actualX, actualY, cols, len = self.scene.world:move(self, self.x + self.moveVec.x * dt, self.y + self.moveVec.y * dt, "cross")
         self.x = actualX
@@ -47,13 +46,13 @@ end
 function Player:keypressed()
     return function (key, scancode, isrepeat)
         if util.upKeys[key] then
-            plr.moveVec = plr.vecs.up
+            self.moveVec = self.vecs.up
         elseif util.downKeys[key] then
-            plr.moveVec = plr.vecs.down
+            self.moveVec = self.vecs.down
         elseif util.leftKeys[key] then
-            plr.moveVec = plr.vecs.left
+            self.moveVec = self.vecs.left
         elseif util.rightKeys[key] then
-            plr.moveVec = plr.vecs.right
+            self.moveVec = self.vecs.right
         end
     end 
 end
