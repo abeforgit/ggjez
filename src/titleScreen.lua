@@ -3,6 +3,7 @@ local Player = require("src.player")
 local Enemy = require("src.enemy")
 local Hotbar = require("src.hotbar")
 local Glitches = require("src.glitches")
+local Scene = require("src.scene")
 
 
 local TitleScreen = {
@@ -12,7 +13,11 @@ local TitleScreen = {
 }
 
 function startGame()
-    return nil
+    scn = Scene:new()
+    love.mousereleased = scn:mousereleased()
+    love.keypressed = scn:keypressed()
+    love.keyreleased = scn:keyreleased()
+    love.mousepressed = scn:mousepressed()
 end
 
 function quitGame()
@@ -72,7 +77,7 @@ function TitleScreen:mousepressed()
             local diffY = y - imgY
             local dist = math.sqrt( diffX * diffX + diffY * diffY)
             if dist < r then
-                print("You are inside")
+                startGame()
             end
         end
     end
