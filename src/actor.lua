@@ -1,4 +1,4 @@
-util = require("src.utils")
+local util = require("src.utils")
 
 local Actor = {
     scene = nil,

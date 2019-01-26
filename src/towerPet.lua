@@ -2,11 +2,11 @@ local Tower = require("src.tower")
 local Utils = require("src.utils")
 local Vector = require("lib.hump.vector")
 
-TowerA = Utils.inheritsFrom(Tower)
+TowerPet = Utils.inheritsFrom(Tower)
 
-function TowerA:new()
+function TowerPet:new()
   local ta = self.create()
-  Tower.new(ta, "assets/tower.png")
+  Tower.new(ta, "assets/cat.png")
   self.pImage = love.graphics.newImage("assets/particles/laserpart.png")
 
   self.ps = love.graphics.newParticleSystem(self.pImage, 40)
@@ -18,7 +18,7 @@ function TowerA:new()
   return ta
 end
 
-function TowerA:attack(targets)
+function TowerPet:attack(targets)
 
   local tgt = targets[1]
   local v1 = Vector.new(self.x, self.y)
@@ -28,14 +28,15 @@ function TowerA:attack(targets)
   self.ps:emit(40)
   self.ps:stop()
 end
-function TowerA:update(dt)
+function TowerPet:update(dt)
   self.ps:update(dt)
   Tower.update(self, dt)
 end
 
-function TowerA:draw()
+function TowerPet:draw()
   Tower.draw(self)
   love.graphics.draw(self.ps, self.x + self.w/2, self.y + self.h/2)
 end
 
-return TowerA
+
+return TowerPet

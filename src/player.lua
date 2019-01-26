@@ -1,17 +1,18 @@
-util = require("src.utils")
-Actor = require("src.actor")
-Vector = require("lib.hump.vector")
-Tower = require("src.tower")
-TowerA = require("src.towerA")
-TowerB = require("src.towerB")
+local util = require("src.utils")
+local Actor = require("src.actor")
+local Vector = require("lib.hump.vector")
+local TowerConversation = require("src.towerConversation")
+local TowerMedication = require("src.towerMedication")
+local TowerPet = require("src.towerPet")
 
 local Player = util.inheritsFrom(Actor)
 
 local spd = 300
 
 towers = {
-    TowerA,
-    TowerB
+    TowerConversation,
+    TowerMedication,
+    TowerPet
 }
 
 Player.health = 100
@@ -39,7 +40,13 @@ function Player:update(dt)
     if self.moveVec ~= Vector.new(0, 0) then
         actualX, actualY, cols, len = self.scene.world:move(self, self.x + self.moveVec.x * dt, self.y + self.moveVec.y * dt, 
         function(item, other)
-            return "cross"
+            print(other.solid)
+            print(item.solid)
+            if (other.solid and item.solid) then
+                return "bounce"
+            else
+                return "cross"
+            end
         end)
         self.x = actualX
         self.y = actualY
