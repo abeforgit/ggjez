@@ -13,7 +13,7 @@ function Actor:setScene(scn)
 end
 
 function Actor:draw()
-    love.graphics.draw(self, self.x, self.y)
+    love.graphics.draw(self.img, self.x, self.y)
 end
 
 function Actor:update()
