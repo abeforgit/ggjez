@@ -4,7 +4,8 @@ local Actor = {
     x = 0,
     y = 0,
     w = 128,
-    h = 128
+    h = 128,
+    type = "actor"
 }
 
 function Actor:setScene(scn)
@@ -13,7 +14,7 @@ function Actor:setScene(scn)
 end
 
 function Actor:draw()
-    love.graphics.draw(self, self.x, self.y)
+    love.graphics.draw(self.img, self.x, self.y)
 end
 
 function Actor:update()
