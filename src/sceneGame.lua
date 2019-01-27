@@ -28,8 +28,8 @@ SceneGame.towers = {
         TowerPet
     }
 
-function SceneGame:init()
-    Scene.init(self, "Bastion of sanity")
+function SceneGame:init(main)
+    Scene.init(self, main, "Bastion of sanity")
     self.world = bump.newWorld()
 
     local test = EnemyDeath()

@@ -7,17 +7,9 @@ SceneWarning.warningImage = nil
 SceneWarning.width = nil
 SceneWarning.height = nil
 
-function SceneWarning:loadSceneTitle()
-    scn = SceneTitle()
-    love.mousereleased = scn:mousereleased()
-    love.keypressed = scn:keypressed()
-    love.keyreleased = scn:keyreleased()
-    love.mousepressed = scn:mousepressed()
-    love.wheelmoved = scn:wheelmoved()
-end
-
-function SceneWarning:init()
-    Scene.init(self, "Warning")
+function SceneWarning:init(main)
+    print(main)
+    Scene.init(self, main, "Warning")
     love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
     startTime = 0
 
@@ -35,31 +27,21 @@ function SceneWarning:update(dt)
     startTime = startTime + dt
     print(startTime)
     if startTime > 10 then
-        self:loadSceneTitle()
+        self:setScene(SceneTitle(self.main))
     end
 end
 
 function SceneWarning:mousepressed()
     return function (x, y, button)
-        self:loadSceneTitle()
+        self:setScene(SceneTitle(self.main))
     end
 end
 
 
 function SceneWarning:keypressed()
     return function (key, scancode, isrepeat)
-        self:loadSceneTitle()
+        self:setScene(SceneTitle())
     end
-end
-
-
-function SceneWarning:mousereleased()
-end
-
-function SceneWarning:keyreleased()
-end
-
-function SceneWarning:wheelmoved(key)
 end
 
 return SceneWarning
