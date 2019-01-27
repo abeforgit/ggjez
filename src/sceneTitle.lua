@@ -22,6 +22,10 @@ function SceneTitle:init(main)
     love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
     self.width = self.playButton:getWidth()
     self.height = self.playButton:getHeight()
+    self.warningFont = love.graphics.newFont(175)
+    self.red = {200 / 255, 30 / 255, 30 / 255,1}
+    self.black = {0,0,0,1}
+    self.green = {106 / 255, 190 / 255, 48 / 255,1}
     self:playSong(false)
 end
 
@@ -33,6 +37,15 @@ function SceneTitle:draw()
     self.quitButtonY = love.graphics.getHeight() / 2 + 200
     love.graphics.draw(self.playButton, self.playButtonX , self.playButtonY, 0, 1, 1, self.width / 2, self.height / 2)
     love.graphics.draw(self.quitButton, self.quitButtonX, self.quitButtonY, 0, 0.5, 0.5, self.quitButton:getWidth() / 2, self.quitButton:getHeight() / 2)
+
+    r,g,b,a = love.graphics.getColor()
+    font = love.graphics.getFont()
+
+    love.graphics.setFont(self.warningFont)
+    love.graphics.printf({self.red, "BASTION", self.black, " OF ", self.green, "SANITY"}, 0, 50, love.graphics.getWidth(), "center")
+
+    love.graphics.setFont(font)
+    love.graphics.setColor(r,g,b,a)
 end
 
 function SceneTitle:mousepressed()
