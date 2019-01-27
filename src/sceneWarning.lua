@@ -53,7 +53,7 @@ end
 
 function SceneWarning:keypressed()
     return function (key, scancode, isrepeat)
-        self:setScene(SceneTitle())
+        self:setScene(SceneTitle(self.main))
     end
 end
 
