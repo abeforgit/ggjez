@@ -12,9 +12,9 @@ Tower.attacksPerSecond = 1
 Tower.visionRect = nil
 Tower.time = 0
 
-function Tower:new(imgPath)
+function Tower:new()
     local twr = self.create()
-    self.img = love.graphics.newImage(imgPath)
+    self.img = love.graphics.newImage(self.imgPath)
     self.type = "tower"
     return twr
 end

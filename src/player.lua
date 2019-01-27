@@ -34,8 +34,6 @@ function Player:update(dt)
     if self.moveVec ~= Vector.new(0, 0) then
         actualX, actualY, cols, len = self.scene.world:move(self, self.x + self.moveVec.x * dt, self.y + self.moveVec.y * dt, 
         function(item, other)
-            print(other.solid)
-            print(item.solid)
             if (other.solid and item.solid) then
                 return "bounce"
             else
@@ -55,7 +53,6 @@ function Player:mousepressed()
     return function (x, y, button)
         if button == 1 then
             self:spawnTower(x, y)
- 
         end
     end
 end
