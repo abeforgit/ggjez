@@ -25,6 +25,7 @@ function Actor:init()
         h = self.range
     }
 end
+
 function Actor:setScene(scn)
     self.scene = scn
     self.scene.world:add(self, self.x, self.y, self.w, self.h)
