@@ -2,6 +2,7 @@ local Utils = require("src.utils")
 local Actor = require("src.actor")
 
 Static = Utils.inheritsFrom(Actor)
+Static.type = "static"
 
 function Static:new(imagePath, solid)
   local stat = self.create()

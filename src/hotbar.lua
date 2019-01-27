@@ -33,7 +33,6 @@ function Hotbar:setScene(scene)
                  self.itemWidth * #scene.towers +
                  self.endWidth
     for i, type in ipairs(self.scene.towers) do
-        print(type.imgPath)
         self.towerImages[i] = love.graphics.newImage(type.imgPath)
     end
 end

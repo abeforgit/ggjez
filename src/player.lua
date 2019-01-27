@@ -34,7 +34,7 @@ function Player:update(dt)
     if self.moveVec ~= Vector.new(0, 0) then
         actualX, actualY, cols, len = self.scene.world:move(self, self.x + self.moveVec.x * dt, self.y + self.moveVec.y * dt, 
         function(item, other)
-            if (other.solid and item.solid) then
+            if (other.solid) then
                 return "bounce"
             else
                 return "cross"

@@ -20,6 +20,7 @@ function Tower:new()
 end
 
 function Tower:setScene(scn)
+    Actor.setScene(self, scn)
     self.scene = scn
     self.visionRect = {
         l = self.x - self.range/2,
