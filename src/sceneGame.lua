@@ -10,49 +10,47 @@ local Hotbar = require("src.hotbar")
 local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
 local Static = require("src.static")
+local Class = require("lib.hump.class")
+local Scene = require("src.scene")
 
-local SceneGame = {
-    actors = {},
-    world = nil,
-    player = nil,
-    hotbar = nil,
-    healthbar = nil,
-    cursorSwitched = false,
+local SceneGame = Class{__includes = Scene}
 
-    towers = {
+SceneGame.actors = {}
+SceneGame.world = nil
+SceneGame.player = nil
+SceneGame.hotbar = nil
+SceneGame.healthbar = nil
+SceneGame.cursorSwitched = false
+
+SceneGame.towers = {
         TowerConversation,
         TowerMedication,
         TowerPet
     }
-}
 
-function SceneGame:new() 
-    local scn = {}
-    setmetatable(scn, self) 
-    self.__index = self
+function SceneGame:init(main)
+    Scene.init(self, main, "Bastion of sanity")
     self.world = bump.newWorld()
 
 
-    scn:addActor(Static("assets/images/carpet.png", false), 200, 100)
-    scn:addActor(Static("assets/images/bed-left.png", true), 500, 100)
-    scn:addActor(Static("assets/images/bed-right.png", true), 628, 100)
-    scn:addActor(Static("assets/images/sofa-left.png", true), 500, 500)
-    scn:addActor(Static("assets/images/sofa-right.png", true), 628, 500)
-    scn:addActor(EnemyDeath(), 628, 100)
-    scn:addActor(TowerConversation(), 500, 300)
+    self:addActor(Static("assets/images/carpet.png", false), 200, 100)
+    self:addActor(Static("assets/images/bed-left.png", true), 500, 100)
+    self:addActor(Static("assets/images/bed-right.png", true), 628, 100)
+    self:addActor(Static("assets/images/sofa-left.png", true), 500, 500)
+    self:addActor(Static("assets/images/sofa-right.png", true), 628, 500)
+    self:addActor(EnemyDeath(), 628, 100)
+    self:addActor(TowerConversation(), 500, 300)
 
     self.player = Player()
-    scn:addActor(self.player)
+    self:addActor(self.player)
 
     self.hotbar = Hotbar()
-    self.hotbar:setScene(scn)
+    self.hotbar:setScene(self)
 
     self.healthbar = Healthbar()
-    self.healthbar:setScene(scn)
+    self.healthbar:setScene(self)
 
     love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
-    
-    return scn
 end
 
 function SceneGame:addActor(actor, x, y)
