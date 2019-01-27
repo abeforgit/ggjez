@@ -76,6 +76,9 @@ end
 
 function Scene:draw()
     local severity = 100 - self.player.health
+    
+    Glitches.glitch(severity)
+
     if ( not (self.cursorSwitched) and severity >= 100) then
         love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-bad.png"))
         self.cursorSwitched = true
@@ -83,12 +86,10 @@ function Scene:draw()
         love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
         self.cursorSwitched = false
     end
-    Glitches.setBackground(severity)
-    Glitches.screenShake(severity)
     for _, actor in ipairs(self.actors) do
         actor:draw()
     end
-    Glitches.glitchOverlay(severity)
+
     self.hotbar:draw()
     self.healthbar:draw()
 end

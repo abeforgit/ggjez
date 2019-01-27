@@ -24,4 +24,10 @@ function Glitches.setBackground(severity)
   love.graphics.setBackgroundColor((95 / 255) * (1 + severity/100), (205 / 255) * (1 + severity/100), (228 / 255) * (1 + severity/100))
 end
 
+function Glitches.glitch(severity)
+  Glitches.setBackground(severity)
+  Glitches.screenShake(severity)
+  Glitches.glitchOverlay(severity)
+end
+
 return Glitches
