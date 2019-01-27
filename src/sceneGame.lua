@@ -32,21 +32,25 @@ function SceneGame:new()
     self.__index = self
     self.world = bump.newWorld()
 
-    scn:addActor(Static:new("assets/images/carpet.png", false), 200, 100)
-    scn:addActor(Static:new("assets/images/bed-left.png", true), 500, 100)
-    scn:addActor(Static:new("assets/images/bed-right.png", true), 628, 100)
-    scn:addActor(Static:new("assets/images/sofa-left.png", true), 500, 500)
-    scn:addActor(Static:new("assets/images/sofa-right.png", true), 628, 500)
-    scn:addActor(EnemyDeath:new(), 628, 100)
-    scn:addActor(TowerConversation:new(), 500, 300)
+    local test = EnemyDeath()
+    print(test.vision)
+    scn:addActor(test)
 
-    self.player = Player:new()
+    scn:addActor(Static("assets/images/carpet.png", false), 200, 100)
+    scn:addActor(Static("assets/images/bed-left.png", true), 500, 100)
+    scn:addActor(Static("assets/images/bed-right.png", true), 628, 100)
+    scn:addActor(Static("assets/images/sofa-left.png", true), 500, 500)
+    scn:addActor(Static("assets/images/sofa-right.png", true), 628, 500)
+    scn:addActor(EnemyDeath(), 628, 100)
+    scn:addActor(TowerConversation(), 500, 300)
+
+    self.player = Player()
     scn:addActor(self.player)
 
-    self.hotbar = Hotbar:new()
+    self.hotbar = Hotbar()
     self.hotbar:setScene(scn)
 
-    self.healthbar = Healthbar:new()
+    self.healthbar = Healthbar()
     self.healthbar:setScene(scn)
 
     love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))

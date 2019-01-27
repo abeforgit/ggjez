@@ -1,13 +1,14 @@
 local Utils = require("src.utils")
 local Actor = require("src.actor")
+local Class = require("lib.hump.class")
 
-Enemy = Utils.inheritsFrom(Actor)
+-- Enemy = Utils.inheritsFrom(Actor)
+
+local Enemy = Class{__includes = Actor}
 
 Enemy.speed = 100
 Enemy.health = 100
 Enemy.type = "enemy"
-Enemy.visionRect = nil
-Enemy.range = 100
 Enemy.attackTimer = 0
 Enemy.attacksPerSecond = 1
 Enemy.attackSounds = {
@@ -22,13 +23,14 @@ Enemy.deathSounds = {
     love.audio.newSource("assets/sounds/enemy_dies_3.ogg", "static")
 }
 
-function Enemy:new(imagePath)
-  local enemy = self.create()
+function Enemy:init(imagePath)
+  Actor.init(self)
+  print(self.vision)
   self.img = love.graphics.newImage(imagePath)
-  return enemy
 end
 
 function Enemy:update(dt)
+  Actor.update(self, dt)
   self.attackTimer = self.attackTimer + dt
   local dx = self.scene.player.x - self.x
   local dy = self.scene.player.y - self.y
@@ -52,12 +54,7 @@ function Enemy:update(dt)
     end
     self.x = newX
     self.y = newY
-    self.visionRect = {
-      l = self.x - self.range/2,
-      t = self.y - self.range/2,
-      w = self.w + self.range,
-      h = self.h + self.range
-    }
+
   end
 end
 

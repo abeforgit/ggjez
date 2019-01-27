@@ -1,16 +1,17 @@
 local Tower = require("src.tower")
 local Utils = require("src.utils")
 local EnemyDoubts = require("src.enemyDoubt")
+local Class = require("lib.hump.class")
 
-TowerConversation = Utils.inheritsFrom(Tower)
+
+-- TowerConversation = Utils.inheritsFrom(Tower)
+local TowerConversation = Class{__includes = Tower}
 
 TowerConversation.imgPath = "assets/images/conversation.png"
 TowerConversation.evilSide = EnemyDoubts
 
-function TowerConversation:new()
-  local tb = self.create()
-  Tower.new(tb)
-  return tb
+function TowerConversation:init()
+  Tower.init(self)
 end
 
 return TowerConversation

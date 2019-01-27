@@ -1,12 +1,10 @@
 local Enemy = require("src.enemy")
 local Utils = require("src.utils")
-
-EnemyDrugs = Utils.inheritsFrom(Enemy)
+local Class = require("lib.hump.class")
+local EnemyDrugs = Class{__includes = Enemy}
 
 function EnemyDrugs:new()
-  local eb = self.create()
-  Enemy.new(eb, "assets/images/syringe.png")
-  return eb
+  Enemy.init(self, "assets/images/syringe.png")
 end
 
 return EnemyDrugs

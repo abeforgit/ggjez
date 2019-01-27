@@ -4,8 +4,12 @@ local Vector = require("lib.hump.vector")
 local TowerConversation = require("src.towerConversation")
 local TowerMedication = require("src.towerMedication")
 local TowerPet = require("src.towerPet")
+local Class = require("lib.hump.class")
 
-local Player = util.inheritsFrom(Actor)
+
+-- local Player = util.inheritsFrom(Actor)
+
+local Player = Class{__includes = Actor}
 
 local spd = 300
 
@@ -24,14 +28,14 @@ Player.vecs = {
     right = Vector.new(spd, 0)
 }
 
-function Player:new()
-    plr = self.create()
+function Player:init()
+    Actor.init(self)
     self.image = love.graphics.newImage("assets/images/player.png")
     self.type = "player"
-    return plr
 end
 
 function Player:update(dt)
+    Actor.update(self, dt)
     if self.moveVec ~= Vector.new(0, 0) then
         actualX, actualY, cols, len = self.scene.world:move(self, self.x + self.moveVec.x * dt, self.y + self.moveVec.y * dt, 
         function(item, other)
@@ -62,7 +66,7 @@ function Player:mousepressed()
 end
 
 function Player:spawnTower(x, y)
-    local twr = self.scene.towers[self.selectedTower]:new()
+    local twr = self.scene.towers[self.selectedTower]()
     upperX = x - twr.w/2
     upperY = y - twr.h/2
     self.scene:addActor(twr, upperX, upperY)
