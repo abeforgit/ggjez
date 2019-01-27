@@ -3,30 +3,43 @@ local Scene = require("src.scene")
 local Class = require("lib.hump.class")
 
 local SceneWarning = Class{__includes = Scene}
-SceneWarning.warningImage = nil
-SceneWarning.width = nil
-SceneWarning.height = nil
 
 function SceneWarning:init(main)
-    print(main)
     Scene.init(self, main, "Warning")
-    love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
-    startTime = 0
-
-    warningImage = love.graphics.newImage("assets/epilepty_warning.jpg")
-    width = warningImage:getWidth()
-    height = warningImage:getHeight()
+    self.startTime = 0
+    self.warningFont = love.graphics.newFont(100)
+    self.warningColor = {1,0,0,1}
+    self.textFont = love.graphics.newFont(50)
+    self.textColor = {1,1,1,1}
+    self.continueFont = love.graphics.newFont(25)
+    self.continueColor = {1,1,1,1}
 end
 
 
 function SceneWarning:draw()
-    love.graphics.draw(warningImage, love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, 0, 1, 1, width / 2, height / 2)
+    r,g,b,a = love.graphics.getColor()
+    font = love.graphics.getFont()
+
+    love.graphics.setFont(self.warningFont)
+    love.graphics.setColor(self.warningColor)
+    love.graphics.printf("WARNING", 0, 200, love.graphics.getWidth(), "center")
+
+    love.graphics.setFont(self.textFont)
+    love.graphics.setColor(self.textColor)
+    love.graphics.printf("The following contains bright, flashing lights and/or imagery that may cause discomfort and/or seizures for those with photosensitive epilepsy. Viewer discretion is advised.", love.graphics.getWidth() / 4, 400, love.graphics.getWidth() / 2, "center")
+
+    love.graphics.setFont(self.continueFont)
+    love.graphics.setColor(self.continueColor)
+    love.graphics.print("Press any key to continue....", 0, love.graphics.getHeight() - self.continueFont:getHeight())
+
+    love.graphics.setFont(font)
+    love.graphics.setColor(r,g,b,a)
 end
 
 function SceneWarning:update(dt)
-    startTime = startTime + dt
-    print(startTime)
-    if startTime > 10 then
+    self.startTime = self.startTime + dt
+    print(self.startTime)
+    if self.startTime > 10 then
         self:setScene(SceneTitle(self.main))
     end
 end
