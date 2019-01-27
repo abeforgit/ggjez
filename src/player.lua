@@ -15,7 +15,8 @@ Player.yVel = 0
 Player.speed = spd
 Player.moveVec = Vector.new()
 Player.keyspressed = 0
-Player.selectedTower = 2
+Player.selectedTower = 1
+Player.rotation = 0
 Player.vecs = {
     up = Vector.new(0, -spd),
     down = Vector.new(0, spd),
@@ -45,8 +46,11 @@ function Player:update(dt)
     end
 end
 
-function Player:draw() 
-    love.graphics.draw(self.image, self.x, self.y)
+function Player:draw()
+    if (self.moveVec.x ~= 0 or self.moveVec.y ~= 0) then
+        self.rotation = math.atan2(self.moveVec.x, -self.moveVec.y)
+    end
+    love.graphics.draw(self.image, self.x + 64, self.y + 64, self.rotation, 1, 1, 64, 64)
 end
 
 function Player:mousepressed()
