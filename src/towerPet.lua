@@ -34,8 +34,8 @@ function TowerPet:attack()
   self.ps:stop()
 end
 function TowerPet:update(dt)
-  self.ps:update(dt)
   Tower.update(self, dt)
+  self.ps:update(dt)
 end
 
 function TowerPet:draw()

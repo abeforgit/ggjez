@@ -35,8 +35,8 @@ function Tower:init()
     self.type = "tower"
     self.evilTimer = 10
     self.constructionSounds[math.random(1, #self.constructionSounds)]:play()
-    self.filter =  function(item) 
-        if item.type == "enemy" then
+    self.visionFilter =  function(item, other) 
+        if other.type == "enemy" then
             return "cross"
         end
         return false 
@@ -52,6 +52,8 @@ function Tower:update(dt)
     end
     self.attackTimer = self.attackTimer + dt
 
+    print(#self.seen)
+
     if(#self.seen > 0) then
         if self.attackTimer > self.attacksPerSecond then
             self:attack()
@@ -63,9 +65,11 @@ end
 function Tower:attack()
     for i = 1,#self.seen do
         self.shootingSounds[math.random(1, #self.shootingSounds)]:play()
-        self.seen[i]:takeDamage(10)
+        self.seen[i].other:takeDamage(10)
     end
 end
+
+
 
 function Tower:turnEvil()
     self.collapseSounds[math.random(1, #self.collapseSounds)]:play()

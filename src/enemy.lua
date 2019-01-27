@@ -27,12 +27,11 @@ function Enemy:init(imagePath)
   Actor.init(self)
   print(self.vision)
   self.img = love.graphics.newImage(imagePath)
-  self.filter = function(item, other)
-    if (other.solid and item.solid) then
-      return "bounce"
-    else
-      return false
+  self.visionFilter = function(item, other) 
+    if other.type == "player" then
+      return "cross"
     end
+    return false
   end
 end
 
@@ -46,8 +45,15 @@ function Enemy:update(dt)
   if length ~= 0 then
     local targetX = self.x + (dx / length) * dt * self.speed
     local targetY = self.y + (dy / length) * dt * self.speed
+    local collisionFilter = function(item, other)
+      if (other.solid and item.solid) then
+        return "bounce"
+      else
+        return false
+      end
+    end
 
-    local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, self.filter)
+    local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, collisionFilter)
     if(#self.seen > 0) then
       if self.attackTimer > self.attacksPerSecond then
         self:attack()

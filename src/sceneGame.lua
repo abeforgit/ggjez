@@ -32,9 +32,6 @@ function SceneGame:new()
     self.__index = self
     self.world = bump.newWorld()
 
-    local test = EnemyDeath()
-    print(test.vision)
-    scn:addActor(test)
 
     scn:addActor(Static("assets/images/carpet.png", false), 200, 100)
     scn:addActor(Static("assets/images/bed-left.png", true), 500, 100)
