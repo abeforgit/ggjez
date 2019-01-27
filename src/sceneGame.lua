@@ -50,8 +50,7 @@ function SceneGame:new()
     self.healthbar:setScene(scn)
 
     love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
-
-    love.window.setFullscreen(true)
+    
     return scn
 end
 

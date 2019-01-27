@@ -8,6 +8,7 @@ function love.load()
     love.keyreleased = scn:keyreleased()
     love.mousepressed = scn:mousepressed()
     love.wheelmoved = scn:wheelmoved()
+    love.window.setFullscreen(true)
 end
 
 function love.update(dt)
