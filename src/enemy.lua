@@ -27,6 +27,13 @@ function Enemy:init(imagePath)
   Actor.init(self)
   print(self.vision)
   self.img = love.graphics.newImage(imagePath)
+  self.filter = function(item, other)
+    if (other.solid and item.solid) then
+      return "bounce"
+    else
+      return false
+    end
+  end
 end
 
 function Enemy:update(dt)
@@ -39,17 +46,11 @@ function Enemy:update(dt)
   if length ~= 0 then
     local targetX = self.x + (dx / length) * dt * self.speed
     local targetY = self.y + (dy / length) * dt * self.speed
-    local playerFilter = function(item, other)
-      if (other.solid and item.solid) then
-        return "bounce"
-      else
-        return false
-      end
-    end
-    local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, playerFilter)
-    if(len > 0) then
+
+    local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, self.filter)
+    if(#self.seen > 0) then
       if self.attackTimer > self.attacksPerSecond then
-        self:attack(cols)
+        self:attack()
         self.attackTimer = 0
       end
     end
@@ -59,11 +60,12 @@ function Enemy:update(dt)
   end
 end
 
-function Enemy:attack(targets)
-  for i = 1,#targets do
-    if targets[i].other.type == "player" then
+function Enemy:attack()
+  for i = 1,#self.seen do
+    print(self.seen[i].other.type)
+    if self.seen[i].other.type == "player" then
       self.attackSounds[math.random(1, #self.attackSounds)]:play()
-      targets[i].other:takeDamage(10)
+      self.seen[i].other:takeDamage(10)
     end
   end
 end

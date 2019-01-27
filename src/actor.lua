@@ -13,6 +13,7 @@ local Actor = Class {
     range = 300,
     vision = nil,
     seen = nil,
+    filter = function () return "cross" end
 
 }
 
@@ -39,8 +40,7 @@ function Actor:draw()
 end
 
 function Actor:update(dt)
-    self.vision.x, self.vision.y, self.seen, len = self.scene.world:move(self.vision, self.x+self.w/2-self.range/2, self.y+self.h/2-self.range/2, function () return "cross" end)
-
+    self.vision.x, self.vision.y, self.seen, len = self.scene.world:move(self.vision, self.x+self.w/2-self.range/2, self.y+self.h/2-self.range/2, self.filter)
 end
 
 return Actor

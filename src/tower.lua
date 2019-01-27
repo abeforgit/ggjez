@@ -35,40 +35,35 @@ function Tower:init()
     self.type = "tower"
     self.evilTimer = 10
     self.constructionSounds[math.random(1, #self.constructionSounds)]:play()
+    self.filter =  function(item) 
+        if item.type == "enemy" then
+            return "cross"
+        end
+        return false 
+    end
 end
 
-function Tower:setScene(scn)
-    Actor.setScene(self, scn)
-    self.scene = scn
-end
 
 function Tower:update(dt)
-    Actor.update(self,dt)
+    Actor.update(self, dt)
     self.evilTimer = self.evilTimer - dt
     if self.evilTimer < 0 then
         self:turnEvil()
     end
     self.attackTimer = self.attackTimer + dt
-    local l, t, w, h = util.unpackRect(self.vision)
-    local items, len = self.scene.world:queryRect(l, t, w, h,
-    function(item) 
-        if item.type == "enemy" then
-            return "cross"
-        end
-        return false 
-    end)
-    if(len > 0) then
+
+    if(#self.seen > 0) then
         if self.attackTimer > self.attacksPerSecond then
-            self:attack(items)
+            self:attack()
             self.attackTimer = 0
         end
     end
 end
 
-function Tower:attack(targets)
-    for i = 1,#targets do
+function Tower:attack()
+    for i = 1,#self.seen do
         self.shootingSounds[math.random(1, #self.shootingSounds)]:play()
-        targets[i]:takeDamage(10)
+        self.seen[i]:takeDamage(10)
     end
 end
 
