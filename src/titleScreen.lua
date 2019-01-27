@@ -23,6 +23,7 @@ function startGame()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
     love.mousepressed = scn:mousepressed()
+    love.wheelmoved = scn:wheelmoved()
 end
 
 function quitGame()
@@ -89,6 +90,9 @@ function TitleScreen:keypressed()
 end
 
 function TitleScreen:keyreleased()
+end
+
+function TitleScreen:wheelmoved(key)
 end
 
 return TitleScreen

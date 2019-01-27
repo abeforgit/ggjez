@@ -3,36 +3,70 @@ local Actor = require("src.actor")
 
 Enemy = Utils.inheritsFrom(Actor)
 
-function Enemy:new(target, imagePath)
+Enemy.speed = 100
+Enemy.health = 100
+Enemy.type = "enemy"
+Enemy.visionRect = nil
+Enemy.range = 100
+Enemy.attackTimer = 0
+Enemy.attacksPerSecond = 1
+Enemy.attackSounds = {
+    love.audio.newSource("assets/sounds/enemy_attacks_1.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_attacks_2.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_attacks_3.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_attacks_4.ogg", "static")
+}
+Enemy.deathSounds = {
+    love.audio.newSource("assets/sounds/enemy_dies_1.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_dies_2.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_dies_3.ogg", "static")
+}
+
+function Enemy:new(imagePath)
   local enemy = self.create()
   self.img = love.graphics.newImage(imagePath)
-  self.speed = 100
-  self.health = 100
-  self.target = target
-  self.type = "enemy"
   return enemy
 end
 
-function Enemy:print()
-  print("Enemy")
-end
-
 function Enemy:update(dt)
-  local dx = self.target.x - self.x
-  local dy = self.target.y - self.y
+  self.attackTimer = self.attackTimer + dt
+  local dx = self.scene.player.x - self.x
+  local dy = self.scene.player.y - self.y
   local length = math.sqrt(dx*dx + dy*dy)
   if length ~= 0 then
     local targetX = self.x + (dx / length) * dt * self.speed
     local targetY = self.y + (dy / length) * dt * self.speed
     local playerFilter = function(item, other)
-      if item.type ~= nil then
+      if (other.solid and item.solid) then
         return "bounce"
+      else
+        return false
       end
-      return "cross"
     end
     local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, playerFilter)
+    if(len > 0) then
+      if self.attackTimer > self.attacksPerSecond then
+        self:attack(cols)
+        self.attackTimer = 0
+      end
+    end
     self.x = newX
     self.y = newY
+    self.visionRect = {
+      l = self.x - self.range/2,
+      t = self.y - self.range/2,
+      w = self.w + self.range,
+      h = self.h + self.range
+    }
+  end
+end
+
+function Enemy:attack(targets)
+  for i = 1,#targets do
+    if targets[i].other.type == "player" then
+      self.attackSounds[math.random(1, #self.attackSounds)]:play()
+      targets[i].other:takeDamage(10)
+    end
   end
 end
 
@@ -44,6 +78,8 @@ function Enemy:takeDamage(dmg)
 end
 
 function Enemy:die()
+  self.deathSounds[math.random(1, #self.deathSounds)]:play()
+  self.scene.player:heal(25)
   self.scene:removeActor(self)
 end
 

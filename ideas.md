@@ -20,7 +20,6 @@
 - Comfort food
 - Working out
 - Music
-- 
 
 ## Ideas
 

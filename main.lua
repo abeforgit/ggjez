@@ -1,11 +1,4 @@
-local Scene = require("src.scene")
-local TitleScreen = require("src.titleScreen")
 local WarningScreen = require("src.warningScreen")
-local Player = require("src.player")
-local EnemyDeath = require("src.enemyDeath")
-local EnemyError = require("src.enemyError")
-local TowerA = require("src.towerA")
-local TowerB = require("src.towerB")
 
 
 function love.load()
@@ -14,7 +7,7 @@ function love.load()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
     love.mousepressed = scn:mousepressed()
- 
+    love.wheelmoved = scn:wheelmoved()
 end
 
 function love.update(dt)

@@ -18,6 +18,7 @@ function WarningScreen:loadTitleScreen()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
     love.mousepressed = scn:mousepressed()
+    love.wheelmoved = scn:wheelmoved()
 end
 
 function WarningScreen:new() 
@@ -65,6 +66,9 @@ function WarningScreen:mousereleased()
 end
 
 function WarningScreen:keyreleased()
+end
+
+function WarningScreen:wheelmoved(key)
 end
 
 return WarningScreen

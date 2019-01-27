@@ -1,14 +1,29 @@
 local bump = require("lib.bump")
 local Player = require("src.player")
-local Enemy = require("src.enemy")
+local EnemyDoubt = require("src.enemyDoubt")
+local EnemyDrugs = require("src.enemyDrugs")
+local EnemyDeath = require("src.enemyDeath")
+local TowerConversation = require("src.towerConversation")
+local TowerMedication = require("src.towerMedication")
+local TowerPet = require("src.towerPet")
 local Hotbar = require("src.hotbar")
+local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
+local Static = require("src.static")
 
 local Scene = {
     actors = {},
     world = nil,
     player = nil,
-    hotbar = nil
+    hotbar = nil,
+    healthbar = nil,
+    cursorSwitched = false,
+
+    towers = {
+        TowerConversation,
+        TowerMedication,
+        TowerPet
+    }
 }
 
 function Scene:new() 
@@ -16,13 +31,27 @@ function Scene:new()
     setmetatable(scn, self) 
     self.__index = self
     self.world = bump.newWorld()
+
+    scn:addActor(Static:new("assets/images/carpet.png", false), 200, 100)
+    scn:addActor(Static:new("assets/images/bed-left.png", true), 500, 100)
+    scn:addActor(Static:new("assets/images/bed-right.png", true), 628, 100)
+    scn:addActor(Static:new("assets/images/sofa-left.png", true), 500, 500)
+    scn:addActor(Static:new("assets/images/sofa-right.png", true), 628, 500)
+    scn:addActor(EnemyDeath:new(), 628, 100)
+    scn:addActor(TowerConversation:new(), 500, 300)
+
     self.player = Player:new()
     scn:addActor(self.player)
-    love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
 
-    scn:addActor(EnemyDeath:new(self.player), 250, 0)
-    scn:addActor(EnemyError:new(self.player),0, 250)
-    scn:addActor(TowerA:new(), 250, 250)
+    self.hotbar = Hotbar:new()
+    self.hotbar:setScene(scn)
+
+    self.healthbar = Healthbar:new()
+    self.healthbar:setScene(scn)
+
+    love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
+
+    love.window.setFullscreen(true)
     return scn
 end
 
@@ -32,6 +61,7 @@ function Scene:addActor(actor, x, y)
     table.insert(self.actors, actor)
     actor:setScene(self)
 end
+
 function Scene:removeActor(actor)
     local ind = nil
     for i, v in ipairs(self.actors) do
@@ -44,14 +74,23 @@ function Scene:removeActor(actor)
     self.world:remove(actor)
 end
 
-
 function Scene:draw()
-    local severity = 0
-    Glitches.screenShake(severity)
+    local severity = 100 - self.player.health
+
+    if ( not (self.cursorSwitched) and severity >= 100) then
+        love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-bad.png"))
+        self.cursorSwitched = true
+    elseif (self.cursorSwitched and severity < 100) then
+        love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
+        self.cursorSwitched = false
+    end
+    Glitches:draw(severity)
     for _, actor in ipairs(self.actors) do
         actor:draw()
     end
-    Glitches.glitchOverlay(severity)
+
+    self.hotbar:draw()
+    self.healthbar:draw()
 end
 
 function Scene:update(dt)
@@ -74,6 +113,10 @@ end
 
 function Scene:keyreleased()
     return self.player:keyreleased()
+end
+
+function Scene:wheelmoved()
+    return self.player:wheelmoved()
 end
 
 return Scene
