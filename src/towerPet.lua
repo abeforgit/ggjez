@@ -9,14 +9,14 @@ TowerPet.imgPath = "assets/cat.png"
 function TowerPet:new()
   local ta = self.create()
   Tower.new(ta, "assets/cat.png")
-  self.pImage = love.graphics.newImage("assets/particles/laserpart.png")
+  ta.pImage = love.graphics.newImage("assets/particles/laserpart.png")
 
-  self.ps = love.graphics.newParticleSystem(self.pImage, 40)
-  self.ps:setParticleLifetime(1)
-  self.ps:setEmissionRate(20)
-  self.ps:setSpeed(200, 500)
-  self.ps:setRadialAcceleration(110, 150)
-  self.ps:stop()
+  ta.ps = love.graphics.newParticleSystem(ta.pImage, 40)
+  ta.ps:setParticleLifetime(1)
+  ta.ps:setEmissionRate(20)
+  ta.ps:setSpeed(200, 500)
+  ta.ps:setRadialAcceleration(110, 150)
+  ta.ps:stop()
   return ta
 end
 
