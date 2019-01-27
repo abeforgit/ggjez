@@ -67,7 +67,6 @@ end
 
 function Enemy:attack()
   for i = 1,#self.seen do
-    print(self.seen[i].other.type)
     if self.seen[i].other.type == "player" then
       self.attackSounds[math.random(1, #self.attackSounds)]:play()
       self.seen[i].other:takeDamage(10)
