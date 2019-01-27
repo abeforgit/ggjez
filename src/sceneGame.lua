@@ -27,24 +27,22 @@ SceneGame.spawnerAmount = 10
 SceneGame.spawners = {}
 
 SceneGame.towers = {
-        TowerConversation,
-        TowerMedication,
-        TowerPet
-    }
+    TowerConversation,
+    TowerMedication,
+    TowerPet
+}
+
 SceneGame.enemies = {
-        EnemyDeath,
-        EnemyDoubt,
-        EnemyDrugs
-    }
+    EnemyDeath,
+    EnemyDoubt,
+    EnemyDrugs
+}
 
 function SceneGame:init(main)
     Scene.init(self, main, "Bastion of sanity")
     self.world = bump.newWorld()
 
     self:initBackground()
-
-    self:addActor(EnemyDeath(), 628, 100)
-    self:addActor(TowerConversation(), 500, 300)
 
     self:addActor(Wall(1, love.graphics.getHeight()), 0, 0)
     self:addActor(Wall(1, love.graphics.getHeight()), love.graphics.getWidth(), 0)
@@ -70,22 +68,23 @@ function SceneGame:init(main)
 end
 
 function SceneGame:initBackground()
-    local bedRight = Static("assets/images/bed-right.png", true)    
-    local bedRightX = love.graphics.getWidth() - bedRight.w
-    self:addActor(bedRight, bedRightX, 0)
+    local bedRight = Static("assets/images/bed-right.png", true)
+    self:addActor(bedRight, love.graphics.getWidth() * (7/8) - bedRight.w, love.graphics.getHeight() * (1/8))
+    self:addActor(Static("assets/images/bed-left.png", true), love.graphics.getWidth() * (7/8) - (bedRight.w) * 2, love.graphics.getHeight() * (1/8))
 
-    local bedLeft = Static("assets/images/bed-left.png", true)
-    local bedLeftX = bedRightX - bedLeft.w
-    self:addActor(bedLeft, bedLeftX, 0)
-    self:addActor(Static("assets/images/carpet.png", false), 200, 100)
+    self:addActor(Static("assets/images/table.png", true), love.graphics.getWidth() * (7/8) - bedRight.w / 2, love.graphics.getHeight() * (1/8) + bedRight.h)
+
+    self:addActor(Static("assets/images/carpet.png", false), love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
+    self:addActor(Static("assets/images/carpet.png", false), love.graphics.getWidth() / 2 - 256, love.graphics.getHeight() / 2)
     
-    local sofaLeft1 = Static("assets/images/sofa-left.png", true)
-    sofaLeft1.rotation = 3*math.pi/2
-    local sofaRight1 = Static("assets/images/sofa-right.png", true)
-    sofaRight1.rotation = 3*math.pi/2
+    self:addActor(Static("assets/images/sofa-left.png", true, 3*math.pi/2), love.graphics.getWidth() * (6/7) - 128, love.graphics.getHeight() - 192)
+    self:addActor(Static("assets/images/sofa-right.png", true, 3*math.pi/2), love.graphics.getWidth() * (6/7) - 128, love.graphics.getHeight() - 320)
 
-    self:addActor(sofaLeft, 100, 100)
+    self:addActor(Static("assets/images/toilet.png", true, math.pi), love.graphics.getWidth() * (2/7) - 128, love.graphics.getHeight() - 128)
 
+    self:addActor(Static("assets/images/closet.png", true, math.pi / 2), love.graphics.getWidth() * (2/7), 0)
+
+    self:addActor(Static("assets/images/desk.png", true, math.pi * 3 / 2), 256, love.graphics.getHeight() / 2)
 end
 
 function SceneGame:addActor(actor, x, y)

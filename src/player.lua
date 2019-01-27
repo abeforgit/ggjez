@@ -39,7 +39,6 @@ function Player:update(dt)
     if self.moveVec ~= Vector.new(0, 0) then
         actualX, actualY, cols, len = self.scene.world:move(self, self.x + self.moveVec.x * dt, self.y + self.moveVec.y * dt, 
         function(item, other)
-            print(other.type)
             if (other.solid or other.type == "wall") then
                 return "slide"
             else
