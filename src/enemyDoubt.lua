@@ -1,12 +1,14 @@
 local Enemy = require("src.enemy")
 local Utils = require("src.utils")
+local Class = require("lib.hump.class")
 
-EnemyDoubt = Utils.inheritsFrom(Enemy)
 
-function EnemyDoubt:new()
-  local eb = self.create()
-  Enemy.new(eb, "assets/images/doubt.png")
-  return eb
+-- EnemyDoubt = Utils.inheritsFrom(Enemy)
+
+local EnemyDoubt = Class{__includes = Enemy}
+
+function EnemyDoubt:init()
+  Enemy.init(self, "assets/images/doubt.png")
 end
 
 return EnemyDoubt

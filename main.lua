@@ -1,12 +1,14 @@
-local Scene = require("src.scene")
+local SceneWarning = require("src.sceneWarning")
+
 
 function love.load()
-    scn = Scene:new()
+    scn = SceneWarning:new()
     love.mousereleased = scn:mousereleased()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
     love.mousepressed = scn:mousepressed()
     love.wheelmoved = scn:wheelmoved()
+    love.window.setFullscreen(true)
 end
 
 function love.update(dt)

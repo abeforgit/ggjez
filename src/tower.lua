@@ -1,8 +1,12 @@
 local util = require("src.utils")
 local Actor = require("src.actor")
+local Class = require("lib.hump.class")
 
-local Tower = util.inheritsFrom(Actor)
+
+-- local Tower = util.inheritsFrom(Actor)
 local Vector = require("lib.hump.vector")
+
+local Tower = Class{__includes = Actor}
 
 Tower.health = 100
 Tower.range = 200
@@ -26,13 +30,12 @@ Tower.shootingSounds = {
     love.audio.newSource("assets/sounds/tower_shooting_3.ogg", "static")
 }
 
-function Tower:new()
-    local twr = self.create()
+function Tower:init()
+    Actor.init(self)
     self.img = love.graphics.newImage(self.imgPath)
     self.type = "tower"
     self.evilTimer = 10
     self.constructionSounds[math.random(1, #self.constructionSounds)]:play()
-    return twr
 end
 
 function Tower:setScene(scn)
@@ -52,7 +55,7 @@ function Tower:update(dt)
         self:turnEvil()
     end
     self.attackTimer = self.attackTimer + dt
-    local l, t, w, h = util.unpackRect(self.visionRect)
+    local l, t, w, h = util.unpackRect(self.vision)
     local items, len = self.scene.world:queryRect(l, t, w, h,
     function(item) 
         if item.type == "enemy" then
@@ -77,7 +80,7 @@ end
 
 function Tower:turnEvil()
     self.collapseSounds[math.random(1, #self.collapseSounds)]:play()
-    local evil = self.evilSide:new()
+    local evil = self.evilSide()
     self.scene:addActor(evil, self.x, self.y)
     self.scene:removeActor(self)
 end
