@@ -55,7 +55,6 @@ function Glitches:draw(severity)
     self:sounds(severity)
     self.glitchSoundTimeout = 300
   end
-  love.graphics.print(self.glitchSoundTimeout, 0, 0)
 end
 
 return Glitches

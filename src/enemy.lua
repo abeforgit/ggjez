@@ -26,9 +26,8 @@ Enemy.damage = 0
 
 function Enemy:init(imagePath)
   Actor.init(self)
-  print(self.vision)
   self.img = love.graphics.newImage(imagePath)
-  self.visionFilter = function(item, other) 
+  self.visionFilter = function(item, other)
     if other.type == "player" then
       return "cross"
     end
@@ -69,7 +68,6 @@ end
 
 function Enemy:attack()
   for i = 1,#self.seen do
-    print(self.seen[i].other.type)
     if self.seen[i].other.type == "player" then
       self.attackSounds[math.random(1, #self.attackSounds)]:play()
       self.seen[i].other:takeDamage(self.damage)

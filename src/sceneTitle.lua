@@ -4,8 +4,8 @@ local Class = require("lib.hump.class")
 
 local SceneTitle = Class{__includes = Scene}
 
-SceneTitle.playButton = nil
-SceneTitle.quitButton = nil
+SceneTitle.playButton = love.graphics.newImage("assets/images/play.png")
+SceneTitle.quitButton = love.graphics.newImage("assets/images/quit.png")
 SceneTitle.width = nil
 SceneTitle.height = nil
 SceneTitle.playButtonX = nil
@@ -20,34 +20,32 @@ end
 function SceneTitle:init(main)
     Scene.init(self, main, "Main Menu")
     love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
-    playButton = love.graphics.newImage("assets/play.png")
-    quitButton = love.graphics.newImage("assets/quit.png")
-    width = playButton:getWidth()
-    height = playButton:getHeight()
+    self.width = self.playButton:getWidth()
+    self.height = self.playButton:getHeight()
     self:playSong(false)
 end
 
 
 function SceneTitle:draw()
-    playButtonX = love.graphics.getWidth() / 2
-    playButtonY = love.graphics.getHeight() / 2
-    quitButtonX = love.graphics.getWidth() / 2 
-    quitButtonY = love.graphics.getHeight() / 2 + 200
-    love.graphics.draw(playButton, playButtonX , playButtonY, 0, 1, 1, width / 2, height / 2)
-    love.graphics.draw(quitButton, quitButtonX, quitButtonY, 0, 0.5, 0.5, quitButton:getWidth() / 2, quitButton:getHeight() / 2)
+    self.playButtonX = love.graphics.getWidth() / 2
+    self.playButtonY = love.graphics.getHeight() / 2
+    self.quitButtonX = love.graphics.getWidth() / 2 
+    self.quitButtonY = love.graphics.getHeight() / 2 + 200
+    love.graphics.draw(self.playButton, self.playButtonX , self.playButtonY, 0, 1, 1, self.width / 2, self.height / 2)
+    love.graphics.draw(self.quitButton, self.quitButtonX, self.quitButtonY, 0, 0.5, 0.5, self.quitButton:getWidth() / 2, self.quitButton:getHeight() / 2)
 end
 
 function SceneTitle:mousepressed()
     return function (x, y, button)
         if button == 1 then
-            local dist = calculateDist(x, y, playButtonX, playButtonY)
-            local r = playButton:getWidth()/2
+            local dist = calculateDist(x, y, self.playButtonX, self.playButtonY)
+            local r = self.playButton:getWidth()/2
             if dist < r then
                 self:setScene(SceneGame(self.main))
                 return nil
             end
-            dist = calculateDist(x, y, quitButtonX, quitButtonY)
-            r = quitButton:getWidth()/2
+            dist = calculateDist(x, y, self.quitButtonX, self.quitButtonY)
+            r = self.quitButton:getWidth()/2
             if dist < r then
                 quitGame()
                 return nil

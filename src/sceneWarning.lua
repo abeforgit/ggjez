@@ -38,7 +38,6 @@ end
 
 function SceneWarning:update(dt)
     self.startTime = self.startTime + dt
-    print(self.startTime)
     if self.startTime > 10 then
         self:setScene(SceneTitle(self.main))
     end
@@ -53,7 +52,7 @@ end
 
 function SceneWarning:keypressed()
     return function (key, scancode, isrepeat)
-        self:setScene(SceneTitle())
+        self:setScene(SceneTitle(self.main))
     end
 end
 
