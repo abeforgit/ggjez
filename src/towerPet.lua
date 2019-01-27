@@ -1,10 +1,12 @@
 local Tower = require("src.tower")
+local EnemyDeath = require("src.enemyDeath")
 local Utils = require("src.utils")
 local Vector = require("lib.hump.vector")
 
 TowerPet = Utils.inheritsFrom(Tower)
 
 TowerPet.imgPath = "assets/cat.png"
+TowerPet.evilSide = EnemyDeath
 
 function TowerPet:new()
   local ta = self.create()

@@ -16,6 +16,7 @@ function Tower:new()
     local twr = self.create()
     self.img = love.graphics.newImage(self.imgPath)
     self.type = "tower"
+    self.evilTimer = 10
     return twr
 end
 
@@ -31,6 +32,10 @@ function Tower:setScene(scn)
 end
 
 function Tower:update(dt)
+    self.evilTimer = self.evilTimer - dt
+    if self.evilTimer < 0 then
+        self:turnEvil()
+    end
     self.attackTimer = self.attackTimer + dt
     local l, t, w, h = util.unpackRect(self.visionRect)
     local items, len = self.scene.world:queryRect(l, t, w, h,
@@ -54,6 +59,11 @@ function Tower:attack(targets)
     end
 end
 
+function Tower:turnEvil()
+    local evil = self.evilSide:new()
+    self.scene:addActor(evil, self.x, self.y)
+    self.scene:removeActor(self)
+end
 
 function Tower:setX(x)
     self.x = x
