@@ -1,8 +1,9 @@
 local TowerConversation = require("src.towerConversation")
 local TowerMedication = require("src.towerMedication")
+local Class = require("lib.hump.class")
 local TowerPet = require("src.towerPet")
 
-local Hotbar = {
+local Hotbar = Class {
     scene = nil,
     y = 10,
     scale = 1.25,
@@ -12,10 +13,7 @@ local Hotbar = {
     towerImages = {}
 }
 
-function Hotbar:new()
-    local hb = {}
-    setmetatable(hb, self) 
-    self.__index = self
+function Hotbar:init()
     self.beginImg = love.graphics.newImage("assets/images/hotbar-begin.png")
     self.itemImg = love.graphics.newImage("assets/images/hotbar-item.png")
     self.selectedImg = love.graphics.newImage("assets/images/hotbar-selected.png")
@@ -24,7 +22,6 @@ function Hotbar:new()
     self.itemWidth = self.itemImg:getWidth() * self.scale
     self.selectedWidth = self.selectedImg:getWidth() * self.scale
     self.endWidth = self.endImg:getWidth() * self.scale
-    return hb
 end
 
 function Hotbar:setScene(scene)

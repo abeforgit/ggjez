@@ -1,13 +1,10 @@
-Healthbar = {
+local Class = require("lib.hump.class")
+
+local Healthbar = Class {
     scene = nil
+
 }
 
-function Healthbar:new()
-    local hb = {}
-    setmetatable(hb, self) 
-    self.__index = self
-    return hb
-end
 
 function Healthbar:setScene(scene)
     self.scene = scene

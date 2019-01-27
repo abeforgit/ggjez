@@ -1,16 +1,20 @@
 local Tower = require("src.tower")
 local Utils = require("src.utils")
 local EnemyDrugs = require("src.enemyDrugs")
+local Class = require("lib.hump.class")
 
-TowerMedication = Utils.inheritsFrom(Tower)
+-- TowerMedication = Utils.inheritsFrom(Tower)
+
+
+
+local TowerMedication = Class{__includes = Tower}
 
 TowerMedication.imgPath = "assets/images/pill.png"
 TowerMedication.evilSide = EnemyDrugs
 
+
 function TowerMedication:new()
-  local ta = self.create()
-  Tower.new(ta)
-  return ta
+  Tower.init(self)
 end
 
 return TowerMedication

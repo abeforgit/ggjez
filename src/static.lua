@@ -1,20 +1,22 @@
 local Utils = require("src.utils")
 local Actor = require("src.actor")
+local Class = require("lib.hump.class")
 
-Static = Utils.inheritsFrom(Actor)
+-- Static = Utils.inheritsFrom(Actor)
+
+local Static = Class{__includes = Actor}
 Static.type = "static"
 
-function Static:new(imagePath, solid)
-  local stat = self.create()
-  stat.img = love.graphics.newImage(imagePath)
-  stat.h = stat.img:getHeight()
-  stat.w = stat.img:getWidth()
+function Static:init(imagePath, solid)
+  Actor.init(self)
+  self.img = love.graphics.newImage(imagePath)
+  self.h = self.img:getHeight()
+  self.w = self.img:getWidth()
   if (solid == nil) then
-    stat.solid = true
+    self.solid = true
   else
-    stat.solid = solid
+    self.solid = solid
   end
-  return stat
 end
 
 return Static

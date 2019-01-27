@@ -2,24 +2,25 @@ local Tower = require("src.tower")
 local EnemyDeath = require("src.enemyDeath")
 local Utils = require("src.utils")
 local Vector = require("lib.hump.vector")
+local Class = require("lib.hump.class")
 
-TowerPet = Utils.inheritsFrom(Tower)
+
+-- TowerPet = Utils.inheritsFrom(Tower)
+local TowerPet = Class{__includes = Tower}
 
 TowerPet.imgPath = "assets/images/cat.png"
 TowerPet.evilSide = EnemyDeath
 
-function TowerPet:new()
-  local ta = self.create()
-  Tower.new(ta, "assets/images/cat.png")
-  ta.pImage = love.graphics.newImage("assets/particles/laserpart.png")
+function TowerPet:init()
+  Tower.init(self, "assets/images/cat.png")
+  self.pImage = love.graphics.newImage("assets/particles/laserpart.png")
 
-  ta.ps = love.graphics.newParticleSystem(ta.pImage, 40)
-  ta.ps:setParticleLifetime(1)
-  ta.ps:setEmissionRate(20)
-  ta.ps:setSpeed(200, 500)
-  ta.ps:setRadialAcceleration(110, 150)
-  ta.ps:stop()
-  return ta
+  self.ps = love.graphics.newParticleSystem(self.pImage, 40)
+  self.ps:setParticleLifetime(1)
+  self.ps:setEmissionRate(20)
+  self.ps:setSpeed(200, 500)
+  self.ps:setRadialAcceleration(110, 150)
+  self.ps:stop()
 end
 
 function TowerPet:attack(targets)
@@ -34,6 +35,7 @@ function TowerPet:attack(targets)
 end
 function TowerPet:update(dt)
   self.ps:update(dt)
+  print("sldökfjdsklö")
   Tower.update(self, dt)
 end
 
