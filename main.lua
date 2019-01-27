@@ -2,7 +2,7 @@ local SceneWarning = require("src.sceneWarning")
 
 
 function love.load()
-    scn = SceneWarning:new()
+    scn = SceneWarning()
     love.mousereleased = scn:mousereleased()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()

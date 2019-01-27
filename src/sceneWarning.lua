@@ -1,12 +1,14 @@
 local SceneTitle = require("src.sceneTitle")
+local Scene = require("src.scene")
+local Class = require("lib.hump.class")
 
-local SceneWarning = {
-    warningImage = nil,
-    width = nil,
-    height = nil
-}
+local SceneWarning = Class{__includes = Scene}
+SceneWarning.warningImage = nil
+SceneWarning.width = nil
+SceneWarning.height = nil
+
 function SceneWarning:loadSceneTitle()
-    scn = SceneTitle:new()
+    scn = SceneTitle()
     love.mousereleased = scn:mousereleased()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
@@ -14,18 +16,14 @@ function SceneWarning:loadSceneTitle()
     love.wheelmoved = scn:wheelmoved()
 end
 
-function SceneWarning:new() 
-    local scn = {}
-    setmetatable(scn, self) 
-    self.__index = self
-    love.window.setTitle("Warning")
+function SceneWarning:init()
+    Scene.init(self, "Warning")
     love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
     startTime = 0
 
     warningImage = love.graphics.newImage("assets/epilepty_warning.jpg")
     width = warningImage:getWidth()
     height = warningImage:getHeight()
-    return scn
 end
 
 

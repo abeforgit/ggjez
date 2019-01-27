@@ -1,19 +1,20 @@
 local SceneGame = require("src.sceneGame")
+local Scene = require("src.scene")
+local Class = require("lib.hump.class")
 
+local SceneTitle = Class{__includes = Scene}
 
-local SceneTitle = {
-    playButton = nil,
-    quitButton = nil,
-    width = nil,
-    height = nil,
-    playButtonX = nil,
-    playButtonY = nil,
-    quitButtonX = nil,
-    quitButtonY = nil
-}
+SceneTitle.playButton = nil
+SceneTitle.quitButton = nil
+SceneTitle.width = nil
+SceneTitle.height = nil
+SceneTitle.playButtonX = nil
+SceneTitle.playButtonY = nil
+SceneTitle.quitButtonX = nil
+SceneTitle.quitButtonY = nil
 
 function startGame()
-    scn = SceneGame:new()
+    scn = SceneGame()
     love.mousereleased = scn:mousereleased()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
@@ -25,18 +26,13 @@ function quitGame()
     love.event.quit()
 end
 
-function SceneTitle:new() 
-
-    local scn = {}
-    setmetatable(scn, self) 
-    self.__index = self
-    love.window.setTitle("Main menu")
+function SceneTitle:init()
+    Scene.init(self, "Main Menu")
     love.graphics.setBackgroundColor(95 / 255, 205 / 255, 228 / 255)
     playButton = love.graphics.newImage("assets/play.png")
     quitButton = love.graphics.newImage("assets/quit.png")
     width = playButton:getWidth()
     height = playButton:getHeight()
-    return scn
 end
 
 
