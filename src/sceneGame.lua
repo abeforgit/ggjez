@@ -76,9 +76,13 @@ function SceneGame:draw()
     local severity = 100 - self.player.health
 
     if ( not (self.cursorSwitched) and severity >= 100) then
+        self:stopSong()
+        self:playSong(true)
         love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-bad.png"))
         self.cursorSwitched = true
     elseif (self.cursorSwitched and severity < 100) then
+        self:stopSong()
+        self:playSong(false)
         love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
         self.cursorSwitched = false
     end
