@@ -1,19 +1,12 @@
-local bump = require("lib.bump")
-local Player = require("src.player")
-local Enemy = require("src.enemy")
-local Hotbar = require("src.hotbar")
-local Glitches = require("src.glitches")
-local Scene = require("src.scene")
-local TitleScreen = require("src.titleScreen")
+local SceneTitle = require("src.sceneTitle")
 
-
-local WarningScreen = {
+local SceneWarning = {
     warningImage = nil,
     width = nil,
     height = nil
 }
-function WarningScreen:loadTitleScreen()
-    scn = TitleScreen:new()
+function SceneWarning:loadSceneTitle()
+    scn = SceneTitle:new()
     love.mousereleased = scn:mousereleased()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
@@ -21,7 +14,7 @@ function WarningScreen:loadTitleScreen()
     love.wheelmoved = scn:wheelmoved()
 end
 
-function WarningScreen:new() 
+function SceneWarning:new() 
     local scn = {}
     setmetatable(scn, self) 
     self.__index = self
@@ -36,39 +29,39 @@ function WarningScreen:new()
 end
 
 
-function WarningScreen:draw()
+function SceneWarning:draw()
     love.graphics.draw(warningImage, love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, 0, 1, 1, width / 2, height / 2)
 end
 
-function WarningScreen:update(dt)
+function SceneWarning:update(dt)
     startTime = startTime + dt
     print(startTime)
     if startTime > 10 then
-        self:loadTitleScreen()
+        self:loadSceneTitle()
     end
 end
 
-function WarningScreen:mousepressed()
+function SceneWarning:mousepressed()
     return function (x, y, button)
-        self:loadTitleScreen()
+        self:loadSceneTitle()
     end
 end
 
 
-function WarningScreen:keypressed()
+function SceneWarning:keypressed()
     return function (key, scancode, isrepeat)
-        self:loadTitleScreen()
+        self:loadSceneTitle()
     end
 end
 
 
-function WarningScreen:mousereleased()
+function SceneWarning:mousereleased()
 end
 
-function WarningScreen:keyreleased()
+function SceneWarning:keyreleased()
 end
 
-function WarningScreen:wheelmoved(key)
+function SceneWarning:wheelmoved(key)
 end
 
-return WarningScreen
+return SceneWarning

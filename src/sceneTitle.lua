@@ -1,12 +1,7 @@
-local bump = require("lib.bump")
-local Player = require("src.player")
-local Enemy = require("src.enemy")
-local Hotbar = require("src.hotbar")
-local Glitches = require("src.glitches")
-local Scene = require("src.scene")
+local SceneGame = require("src.sceneGame")
 
 
-local TitleScreen = {
+local SceneTitle = {
     playButton = nil,
     quitButton = nil,
     width = nil,
@@ -18,7 +13,7 @@ local TitleScreen = {
 }
 
 function startGame()
-    scn = Scene:new()
+    scn = SceneGame:new()
     love.mousereleased = scn:mousereleased()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()
@@ -30,7 +25,7 @@ function quitGame()
     love.event.quit()
 end
 
-function TitleScreen:new() 
+function SceneTitle:new() 
 
     local scn = {}
     setmetatable(scn, self) 
@@ -45,7 +40,7 @@ function TitleScreen:new()
 end
 
 
-function TitleScreen:draw()
+function SceneTitle:draw()
     playButtonX = love.graphics.getWidth() / 2
     playButtonY = love.graphics.getHeight() / 2
     quitButtonX = love.graphics.getWidth() / 2 
@@ -54,13 +49,13 @@ function TitleScreen:draw()
     love.graphics.draw(quitButton, quitButtonX, quitButtonY, 0, 0.5, 0.5, quitButton:getWidth() / 2, quitButton:getHeight() / 2)
 end
 
-function TitleScreen:update(dt)
+function SceneTitle:update(dt)
 end
 
-function TitleScreen:mousereleased()
+function SceneTitle:mousereleased()
 end
 
-function TitleScreen:mousepressed()
+function SceneTitle:mousepressed()
     return function (x, y, button)
         if button == 1 then
             local dist = calculateDist(x, y, playButtonX, playButtonY)
@@ -86,13 +81,13 @@ function calculateDist(x, y, imgX, imgY)
     return math.sqrt(diffX * diffX + diffY * diffY)
 end
 
-function TitleScreen:keypressed()
+function SceneTitle:keypressed()
 end
 
-function TitleScreen:keyreleased()
+function SceneTitle:keyreleased()
 end
 
-function TitleScreen:wheelmoved(key)
+function SceneTitle:wheelmoved(key)
 end
 
-return TitleScreen
+return SceneTitle

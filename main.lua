@@ -1,8 +1,8 @@
-local WarningScreen = require("src.warningScreen")
+local SceneWarning = require("src.sceneWarning")
 
 
 function love.load()
-    scn = WarningScreen:new()
+    scn = SceneWarning:new()
     love.mousereleased = scn:mousereleased()
     love.keypressed = scn:keypressed()
     love.keyreleased = scn:keyreleased()

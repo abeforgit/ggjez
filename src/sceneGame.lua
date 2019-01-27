@@ -11,7 +11,7 @@ local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
 local Static = require("src.static")
 
-local Scene = {
+local SceneGame = {
     actors = {},
     world = nil,
     player = nil,
@@ -26,7 +26,7 @@ local Scene = {
     }
 }
 
-function Scene:new() 
+function SceneGame:new() 
     local scn = {}
     setmetatable(scn, self) 
     self.__index = self
@@ -55,14 +55,14 @@ function Scene:new()
     return scn
 end
 
-function Scene:addActor(actor, x, y)
+function SceneGame:addActor(actor, x, y)
     actor.x = x or 0
     actor.y = y or 0
     table.insert(self.actors, actor)
     actor:setScene(self)
 end
 
-function Scene:removeActor(actor)
+function SceneGame:removeActor(actor)
     local ind = nil
     for i, v in ipairs(self.actors) do
         if v == actor then
@@ -74,7 +74,7 @@ function Scene:removeActor(actor)
     self.world:remove(actor)
 end
 
-function Scene:draw()
+function SceneGame:draw()
     local severity = 100 - self.player.health
 
     if ( not (self.cursorSwitched) and severity >= 100) then
@@ -93,30 +93,30 @@ function Scene:draw()
     self.healthbar:draw()
 end
 
-function Scene:update(dt)
+function SceneGame:update(dt)
     for _, actor in ipairs(self.actors) do
         actor:update(dt)
     end
 end
 
-function Scene:mousereleased()
+function SceneGame:mousereleased()
     return self.player:mousereleased()
 end
 
-function Scene:mousepressed()
+function SceneGame:mousepressed()
     return self.player:mousepressed()
 end
 
-function Scene:keypressed()
+function SceneGame:keypressed()
     return self.player:keypressed()
 end
 
-function Scene:keyreleased()
+function SceneGame:keyreleased()
     return self.player:keyreleased()
 end
 
-function Scene:wheelmoved()
+function SceneGame:wheelmoved()
     return self.player:wheelmoved()
 end
 
-return Scene
+return SceneGame
