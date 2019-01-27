@@ -8,6 +8,7 @@ local Actor = Class {
     y = 0,
     w = 128,
     h = 128,
+    r = 0,
     type = "actor",
     solid = true,
     range = 300,
@@ -33,7 +34,7 @@ function Actor:setScene(scn)
 end
 
 function Actor:draw()
-    love.graphics.draw(self.img, self.x, self.y)
+    love.graphics.draw(self.img, self.x + self.w / 2, self.y + self.h / 2, self.r, 1, 1, self.w / 2, self.h / 2)
     if self.vision then
         local x, y, w, h = util.unpackRect(self.vision)
         love.graphics.rectangle("line", x, y, w, h)

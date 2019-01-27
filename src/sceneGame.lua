@@ -28,28 +28,22 @@ SceneGame.spawners = {}
 SceneGame.maxEntities = 250
 
 SceneGame.towers = {
-        TowerConversation,
-        TowerMedication,
-        TowerPet
-    }
+    TowerConversation,
+    TowerMedication,
+    TowerPet
+}
+
 SceneGame.enemies = {
-        EnemyDeath,
-        EnemyDoubt,
-        EnemyDrugs
-    }
+    EnemyDeath,
+    EnemyDoubt,
+    EnemyDrugs
+}
 
 function SceneGame:init(main)
     Scene.init(self, main, "Bastion of sanity")
     self.world = bump.newWorld()
 
-
-    self:addActor(Static("assets/images/carpet.png", false), 200, 100)
-    self:addActor(Static("assets/images/bed-left.png", true), 500, 100)
-    self:addActor(Static("assets/images/bed-right.png", true), 628, 100)
-    self:addActor(Static("assets/images/sofa-left.png", true), 500, 500)
-    self:addActor(Static("assets/images/sofa-right.png", true), 628, 500)
-    self:addActor(EnemyDeath(), 628, 100)
-    self:addActor(TowerConversation(), 500, 300)
+    self:initBackground()
 
     self:addActor(Wall(1, love.graphics.getHeight()), 0, 0)
     self:addActor(Wall(1, love.graphics.getHeight()), love.graphics.getWidth(), 0)
@@ -72,6 +66,26 @@ function SceneGame:init(main)
     end
 
     love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
+end
+
+function SceneGame:initBackground()
+    local bedRight = Static("assets/images/bed-right.png", true)
+    self:addActor(bedRight, love.graphics.getWidth() * (7/8) - bedRight.w, love.graphics.getHeight() * (1/8))
+    self:addActor(Static("assets/images/bed-left.png", true), love.graphics.getWidth() * (7/8) - (bedRight.w) * 2, love.graphics.getHeight() * (1/8))
+
+    self:addActor(Static("assets/images/table.png", true), love.graphics.getWidth() * (7/8) - bedRight.w / 2, love.graphics.getHeight() * (1/8) + bedRight.h)
+
+    self:addActor(Static("assets/images/carpet.png", false), love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
+    self:addActor(Static("assets/images/carpet.png", false), love.graphics.getWidth() / 2 - 256, love.graphics.getHeight() / 2)
+    
+    self:addActor(Static("assets/images/sofa-left.png", true, 3*math.pi/2), love.graphics.getWidth() * (6/7) - 128, love.graphics.getHeight() - 192)
+    self:addActor(Static("assets/images/sofa-right.png", true, 3*math.pi/2), love.graphics.getWidth() * (6/7) - 128, love.graphics.getHeight() - 320)
+
+    self:addActor(Static("assets/images/toilet.png", true, math.pi), love.graphics.getWidth() * (2/7) - 128, love.graphics.getHeight() - 128)
+
+    self:addActor(Static("assets/images/closet.png", true, math.pi / 2), love.graphics.getWidth() * (2/7), 0)
+
+    self:addActor(Static("assets/images/desk.png", true, math.pi * 3 / 2), 256, love.graphics.getHeight() / 2)
 end
 
 function SceneGame:addActor(actor, x, y)
@@ -98,7 +112,7 @@ end
 function SceneGame:draw()
     local severity = 100 - self.player.health
 
-    if ( not (self.cursorSwitched) and severity >= 100) then
+    if (not (self.cursorSwitched) and severity >= 100) then
         self:stopSong()
         self:playSong(true)
         love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-bad.png"))
