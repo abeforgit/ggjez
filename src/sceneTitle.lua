@@ -24,6 +24,7 @@ function SceneTitle:init(main)
     quitButton = love.graphics.newImage("assets/quit.png")
     width = playButton:getWidth()
     height = playButton:getHeight()
+    self:playSong(false)
 end
 
 
