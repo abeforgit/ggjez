@@ -1,10 +1,5 @@
 local Glitches = {}
 
-local glitchImages = {
-  love.graphics.newImage("assets/black.png"),
-  love.graphics.newImage("assets/glitch1.png")
-}
-
 function Glitches.screenShake(severity)
   local dx = math.random(severity * 2) - severity
   local dy = math.random(severity * 2) - severity

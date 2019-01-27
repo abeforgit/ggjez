@@ -4,7 +4,7 @@ local EnemyDrugs = require("src.enemyDrugs")
 
 TowerMedication = Utils.inheritsFrom(Tower)
 
-TowerMedication.imgPath = "assets/pill.png"
+TowerMedication.imgPath = "assets/images/pill.png"
 TowerMedication.evilSide = EnemyDrugs
 
 function TowerMedication:new()

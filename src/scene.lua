@@ -32,11 +32,11 @@ function Scene:new()
     self.__index = self
     self.world = bump.newWorld()
 
-    scn:addActor(Static:new("assets/carpet.png", false), 200, 100)
-    scn:addActor(Static:new("assets/bed-left.png", true), 500, 100)
-    scn:addActor(Static:new("assets/bed-right.png", true), 628, 100)
-    scn:addActor(Static:new("assets/sofa-left.png", true), 500, 500)
-    scn:addActor(Static:new("assets/sofa-right.png", true), 628, 500)
+    scn:addActor(Static:new("assets/images/carpet.png", false), 200, 100)
+    scn:addActor(Static:new("assets/images/bed-left.png", true), 500, 100)
+    scn:addActor(Static:new("assets/images/bed-right.png", true), 628, 100)
+    scn:addActor(Static:new("assets/images/sofa-left.png", true), 500, 500)
+    scn:addActor(Static:new("assets/images/sofa-right.png", true), 628, 500)
     scn:addActor(EnemyDeath:new(), 628, 100)
     scn:addActor(TowerConversation:new(), 500, 300)
 
@@ -49,7 +49,7 @@ function Scene:new()
     self.healthbar = Healthbar:new()
     self.healthbar:setScene(scn)
 
-    love.mouse.setCursor(love.mouse.newCursor("assets/cursor-good.png"))
+    love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
 
     love.window.setFullscreen(true)
     return scn
@@ -77,7 +77,7 @@ end
 function Scene:draw()
     local severity = 100 - self.player.health
     if ( not (self.cursorSwitched) and severity >= 100) then
-        love.mouse.setCursor(love.mouse.newCursor("assets/cursor.png"))
+        love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor.png"))
         self.cursorSwitched = true
     end
     Glitches.setBackground(severity)

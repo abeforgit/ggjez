@@ -16,7 +16,7 @@ end
 function Healthbar:draw()
     local r, g, b, a = love.graphics.getColor()
 
-    love.graphics.draw(love.graphics.newImage("assets/health.png"), love.graphics.getWidth() / 2 - 256, love.graphics.getHeight() - 64)
+    love.graphics.draw(love.graphics.newImage("assets/images/health.png"), love.graphics.getWidth() / 2 - 256, love.graphics.getHeight() - 64)
 
     love.graphics.setColor(105 / 255,106 / 255,106 / 255)
     love.graphics.rectangle("fill", love.graphics.getWidth() / 2, love.graphics.getHeight() - 64, love.graphics.getWidth() / 2, 64)

@@ -26,7 +26,7 @@ Player.vecs = {
 
 function Player:new()
     plr = self.create()
-    self.image = love.graphics.newImage("assets/player.png")
+    self.image = love.graphics.newImage("assets/images/player.png")
     self.type = "player"
     return plr
 end

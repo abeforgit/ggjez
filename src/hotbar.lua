@@ -16,10 +16,10 @@ function Hotbar:new()
     local hb = {}
     setmetatable(hb, self) 
     self.__index = self
-    self.beginImg = love.graphics.newImage("assets/hotbar-begin.png")
-    self.itemImg = love.graphics.newImage("assets/hotbar-item.png")
-    self.selectedImg = love.graphics.newImage("assets/hotbar-selected.png")
-    self.endImg = love.graphics.newImage("assets/hotbar-end.png")
+    self.beginImg = love.graphics.newImage("assets/images/hotbar-begin.png")
+    self.itemImg = love.graphics.newImage("assets/images/hotbar-item.png")
+    self.selectedImg = love.graphics.newImage("assets/images/hotbar-selected.png")
+    self.endImg = love.graphics.newImage("assets/images/hotbar-end.png")
     self.beginWidth = self.beginImg:getWidth() * self.scale
     self.itemWidth = self.itemImg:getWidth() * self.scale
     self.selectedWidth = self.selectedImg:getWidth() * self.scale

@@ -5,7 +5,7 @@ EnemyDrugs = Utils.inheritsFrom(Enemy)
 
 function EnemyDrugs:new()
   local eb = self.create()
-  Enemy.new(eb, "assets/syringe.png")
+  Enemy.new(eb, "assets/images/syringe.png")
   return eb
 end
 

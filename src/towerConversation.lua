@@ -4,7 +4,7 @@ local EnemyDoubts = require("src.enemyDoubt")
 
 TowerConversation = Utils.inheritsFrom(Tower)
 
-TowerConversation.imgPath = "assets/conversation.png"
+TowerConversation.imgPath = "assets/images/conversation.png"
 TowerConversation.evilSide = EnemyDoubts
 
 function TowerConversation:new()

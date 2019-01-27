@@ -5,12 +5,12 @@ local Vector = require("lib.hump.vector")
 
 TowerPet = Utils.inheritsFrom(Tower)
 
-TowerPet.imgPath = "assets/cat.png"
+TowerPet.imgPath = "assets/images/cat.png"
 TowerPet.evilSide = EnemyDeath
 
 function TowerPet:new()
   local ta = self.create()
-  Tower.new(ta, "assets/cat.png")
+  Tower.new(ta, "assets/images/cat.png")
   ta.pImage = love.graphics.newImage("assets/particles/laserpart.png")
 
   ta.ps = love.graphics.newParticleSystem(ta.pImage, 40)

@@ -5,7 +5,7 @@ EnemyDoubt = Utils.inheritsFrom(Enemy)
 
 function EnemyDoubt:new()
   local eb = self.create()
-  Enemy.new(eb, "assets/doubt.png")
+  Enemy.new(eb, "assets/images/doubt.png")
   return eb
 end
 
