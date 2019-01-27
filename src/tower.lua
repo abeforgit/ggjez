@@ -11,12 +11,27 @@ Tower.attackTimer = 0
 Tower.attacksPerSecond = 1
 Tower.visionRect = nil
 Tower.time = 0
+Tower.constructionSounds = {
+    love.audio.newSource("assets/sounds/construction_1.ogg", "static"),
+    love.audio.newSource("assets/sounds/construction_2.ogg", "static")
+}
+Tower.collapseSounds = {
+    love.audio.newSource("assets/sounds/tower_collapses_1.ogg", "static"),
+    love.audio.newSource("assets/sounds/tower_collapses_2.ogg", "static"),
+    love.audio.newSource("assets/sounds/tower_collapses_3.ogg", "static")
+}
+Tower.shootingSounds = {
+    love.audio.newSource("assets/sounds/tower_shooting_1.ogg", "static"),
+    love.audio.newSource("assets/sounds/tower_shooting_2.ogg", "static"),
+    love.audio.newSource("assets/sounds/tower_shooting_3.ogg", "static")
+}
 
 function Tower:new()
     local twr = self.create()
     self.img = love.graphics.newImage(self.imgPath)
     self.type = "tower"
     self.evilTimer = 10
+    self.constructionSounds[math.random(1, #self.constructionSounds)]:play()
     return twr
 end
 
@@ -55,11 +70,13 @@ end
 
 function Tower:attack(targets)
     for i = 1,#targets do
+        self.shootingSounds[math.random(1, #self.shootingSounds)]:play()
         targets[i]:takeDamage(10)
     end
 end
 
 function Tower:turnEvil()
+    self.collapseSounds[math.random(1, #self.collapseSounds)]:play()
     local evil = self.evilSide:new()
     self.scene:addActor(evil, self.x, self.y)
     self.scene:removeActor(self)

@@ -10,6 +10,17 @@ Enemy.visionRect = nil
 Enemy.range = 100
 Enemy.attackTimer = 0
 Enemy.attacksPerSecond = 1
+Enemy.attackSounds = {
+    love.audio.newSource("assets/sounds/enemy_attacks_1.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_attacks_2.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_attacks_3.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_attacks_4.ogg", "static")
+}
+Enemy.deathSounds = {
+    love.audio.newSource("assets/sounds/enemy_dies_1.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_dies_2.ogg", "static"),
+    love.audio.newSource("assets/sounds/enemy_dies_3.ogg", "static")
+}
 
 function Enemy:new(imagePath)
   local enemy = self.create()
@@ -53,6 +64,7 @@ end
 function Enemy:attack(targets)
   for i = 1,#targets do
     if targets[i].other.type == "player" then
+      self.attackSounds[math.random(1, #self.attackSounds)]:play()
       targets[i].other:takeDamage(10)
     end
   end
@@ -66,6 +78,7 @@ function Enemy:takeDamage(dmg)
 end
 
 function Enemy:die()
+  self.deathSounds[math.random(1, #self.deathSounds)]:play()
   self.scene.player:heal(25)
   self.scene:removeActor(self)
 end
