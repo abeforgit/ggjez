@@ -11,6 +11,8 @@ function Scene:init(main, title, song)
   print(main)
   self.main = main
   self.title = title
+  self.soundTrackDark:setLooping(true)
+  self.soundTrackNormal:setLooping(true)
   love.window.setTitle(title)
 end
 
