@@ -26,7 +26,7 @@ Enemy.deathSounds = {
 function Enemy:init(imagePath)
   Actor.init(self)
   self.img = love.graphics.newImage(imagePath)
-  self.visionFilter = function(item, other) 
+  self.visionFilter = function(item, other)
     if other.type == "player" then
       return "cross"
     end
