@@ -40,12 +40,8 @@ function SceneGame:init(main)
     Scene.init(self, main, "Bastion of sanity")
     self.world = bump.newWorld()
 
+    self:initBackground()
 
-    self:addActor(Static("assets/images/carpet.png", false), 200, 100)
-    self:addActor(Static("assets/images/bed-left.png", true), 500, 100)
-    self:addActor(Static("assets/images/bed-right.png", true), 628, 100)
-    self:addActor(Static("assets/images/sofa-left.png", true), 500, 500)
-    self:addActor(Static("assets/images/sofa-right.png", true), 628, 500)
     self:addActor(EnemyDeath(), 628, 100)
     self:addActor(TowerConversation(), 500, 300)
 
@@ -65,6 +61,10 @@ function SceneGame:init(main)
     end
 
     love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
+end
+
+function SceneGAme:initBackground()
+
 end
 
 function SceneGame:addActor(actor, x, y)
@@ -89,7 +89,7 @@ end
 function SceneGame:draw()
     local severity = 100 - self.player.health
 
-    if ( not (self.cursorSwitched) and severity >= 100) then
+    if (not (self.cursorSwitched) and severity >= 100) then
         self:stopSong()
         self:playSong(true)
         love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-bad.png"))
