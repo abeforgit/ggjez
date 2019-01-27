@@ -10,6 +10,7 @@ local Hotbar = require("src.hotbar")
 local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
 local Static = require("src.static")
+local Spawner = require("src.spawner")
 
 local Scene = {
     actors = {},
@@ -18,11 +19,19 @@ local Scene = {
     hotbar = nil,
     healthbar = nil,
     cursorSwitched = false,
+    spawnerAmount = 10,
+    spawners = {},
 
     towers = {
         TowerConversation,
         TowerMedication,
         TowerPet
+    },
+
+    enemies = {
+        EnemyDeath,
+        EnemyDoubt,
+        EnemyDrugs
     }
 }
 
@@ -48,6 +57,12 @@ function Scene:new()
 
     self.healthbar = Healthbar:new()
     self.healthbar:setScene(scn)
+
+    for i = 1, self.spawnerAmount do
+        local spwn = Spawner:new()
+        spwn:setScene(scn)
+        table.insert(self.spawners, spwn)
+    end
 
     love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
 
