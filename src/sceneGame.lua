@@ -12,8 +12,10 @@ local Glitches = require("src.glitches")
 local Static = require("src.static")
 local Spawner = require("src.spawner")
 local Class = require("lib.hump.class")
+local SceneLeave = require("src.sceneLeave")
 local Scene = require("src.scene")
 local Wall = require("src.wall")
+
 
 local SceneGame = Class{__includes = Scene}
 
@@ -151,7 +153,15 @@ function SceneGame:mousepressed()
 end
 
 function SceneGame:keypressed()
-    return self.player:keypressed()
+    return function (key, scancode, isrepeat)
+        if key == "escape" then 
+            local menu = SceneLeave(self.main)
+            menu.currentProgress = self
+            self:setScene(menu)
+        else 
+            self.player:keypressed()(key, scancode, isrepeat)
+        end 
+    end
 end
 
 function SceneGame:keyreleased()
