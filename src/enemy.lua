@@ -33,11 +33,11 @@ function Enemy:update(dt)
     local targetY = self.y + (dy / length) * dt * self.speed
     local playerFilter = function(item, other)
       if (other.solid and item.solid) then
-          return "bounce"
+        return "bounce"
       else
         return false
       end
-  end
+    end
     local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, playerFilter)
     if(len > 0) then
       if self.attackTimer > self.attacksPerSecond then
@@ -49,7 +49,7 @@ function Enemy:update(dt)
     self.y = newY
   end
 end
-  
+
 function Enemy:attack(targets)
   for i = 1,#targets do
     if targets[i].other.type == "player" then
@@ -66,6 +66,7 @@ function Enemy:takeDamage(dmg)
 end
 
 function Enemy:die()
+  self.scene.player:heal(25)
   self.scene:removeActor(self)
 end
 

@@ -35,6 +35,8 @@ function Scene:new()
     scn:addActor(Static:new("assets/carpet.png", false), 200, 100)
     scn:addActor(Static:new("assets/bed-left.png", true), 500, 100)
     scn:addActor(Static:new("assets/bed-right.png", true), 628, 100)
+    scn:addActor(Static:new("assets/sofa-left.png", true), 500, 500)
+    scn:addActor(Static:new("assets/sofa-right.png", true), 628, 500)
     scn:addActor(EnemyDeath:new(), 628, 100)
     scn:addActor(TowerConversation:new(), 500, 300)
 

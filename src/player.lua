@@ -125,4 +125,11 @@ function Player:takeDamage(dmg)
     self.health = self.health - dmg
 end
 
+function Player:heal(amt)
+    self.health = self.health + amt
+    if self.health > 100 then
+        self.health = 100
+    end
+end
+
 return Player
