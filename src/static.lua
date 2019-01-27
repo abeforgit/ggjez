@@ -6,6 +6,7 @@ local Class = require("lib.hump.class")
 
 local Static = Class{__includes = Actor}
 Static.type = "static"
+Static.rotation = 0
 
 function Static:init(imagePath, solid)
   Actor.init(self)
@@ -17,6 +18,10 @@ function Static:init(imagePath, solid)
   else
     self.solid = solid
   end
+end
+
+function Static:draw() 
+  love.graphics.draw(self.img, self.x, self.y, self.rotation)
 end
 
 return Static

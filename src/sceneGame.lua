@@ -63,7 +63,22 @@ function SceneGame:init(main)
     love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
 end
 
-function SceneGAme:initBackground()
+function SceneGame:initBackground()
+    local bedRight = Static("assets/images/bed-right.png", true)    
+    local bedRightX = love.graphics.getWidth() - bedRight.w
+    self:addActor(bedRight, bedRightX, 0)
+
+    local bedLeft = Static("assets/images/bed-left.png", true)
+    local bedLeftX = bedRightX - bedLeft.w
+    self:addActor(bedLeft, bedLeftX, 0)
+    self:addActor(Static("assets/images/carpet.png", false), 200, 100)
+    
+    local sofaLeft1 = Static("assets/images/sofa-left.png", true)
+    sofaLeft1.rotation = 3*math.pi/2
+    local sofaRight1 = Static("assets/images/sofa-right.png", true)
+    sofaRight1.rotation = 3*math.pi/2
+
+    self:addActor(sofaLeft, 100, 100)
 
 end
 
