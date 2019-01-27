@@ -15,9 +15,20 @@ function Spawner:new()
 
     local screenWidth = love.graphics.getWidth()
     local screenHeight = love.graphics.getHeight()
-    self.x = math.random() >= 0.5 and math.random(0 - self.spawningWidth, 0) or math.random(screenWidth, screenWidth + self.spawningWidth)
-    self.y = math.random() >= 0.5 and math.random(0 - self.spawningHeight, 0) or math.random(screenHeight, screenHeight + self.spawningHeight)
+    if math.random() >= 0.5 then 
+        print("reeeeeee")
+        self.x = - math.random(0, self.spawningWidth) 
+    else
+        self.x = math.random(screenWidth, screenWidth + self.spawningWidth)
+    end 
 
+    if math.random() >= 0.5 then 
+        print("reeeeeee")
+        self.y = - math.random(0, self.spawningHeight) 
+    else 
+        self.y = math.random(screenHeight, screenHeight + self.spawningHeight)
+    end 
+    
     return spwnr
 end
 
@@ -36,9 +47,8 @@ end
 
 function Spawner:spawnEnemy()
     local spawnIndex = math.random(#self.scene.enemies)
-    local enemy = self.scene.enemies[spawnIndex]:new()
+    local enemy = self.scene.enemies[spawnIndex]()
     self.scene:addActor(enemy, self.x, self.y)
 end
 
 return Spawner
-    

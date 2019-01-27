@@ -25,7 +25,6 @@ Enemy.deathSounds = {
 
 function Enemy:init(imagePath)
   Actor.init(self)
-  print(self.vision)
   self.img = love.graphics.newImage(imagePath)
 end
 

@@ -35,7 +35,6 @@ end
 
 function SceneWarning:update(dt)
     startTime = startTime + dt
-    print(startTime)
     if startTime > 10 then
         self:loadSceneTitle()
     end

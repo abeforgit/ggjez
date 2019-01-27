@@ -35,7 +35,6 @@ function TowerPet:attack(targets)
 end
 function TowerPet:update(dt)
   self.ps:update(dt)
-  print("sldökfjdsklö")
   Tower.update(self, dt)
 end
 

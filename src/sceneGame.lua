@@ -42,7 +42,6 @@ function SceneGame:new()
     self.world = bump.newWorld()
 
     local test = EnemyDeath()
-    print(test.vision)
     scn:addActor(test)
 
     scn:addActor(Static("assets/images/carpet.png", false), 200, 100)
@@ -114,6 +113,10 @@ end
 function SceneGame:update(dt)
     for _, actor in ipairs(self.actors) do
         actor:update(dt)
+    end
+
+    for _, spawner in ipairs(self.spawners) do
+        spawner:update(dt)
     end
 end
 
