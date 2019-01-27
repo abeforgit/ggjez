@@ -13,7 +13,7 @@ function EnemyMinion:init()
     self.lifetime = 0
     self.maxlife = 3
     self.attacksPerSecond = 0.5
-    self.damage = 0.5
+    self.damage = 1
     self.health = 50
   Enemy.init(self, "assets/images/NANI.png")
 end

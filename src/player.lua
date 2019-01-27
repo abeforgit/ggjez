@@ -21,6 +21,8 @@ Player.moveVec = Vector.new()
 Player.keyspressed = 0
 Player.selectedTower = 1
 Player.rotation = 0
+Player.maxTowers = 10
+Player.curTowers = 0
 Player.vecs = {
     up = Vector.new(0, -spd),
     down = Vector.new(0, spd),
@@ -40,6 +42,7 @@ function Player:update(dt)
         actualX, actualY, cols, len = self.scene.world:move(self, self.x + self.moveVec.x * dt, self.y + self.moveVec.y * dt, 
         function(item, other)
             print(other.type)
+            if (other.type == "tower") then return false end
             if (other.solid or other.type == "wall") then
                 return "slide"
             else
@@ -67,10 +70,12 @@ function Player:mousepressed()
 end
 
 function Player:spawnTower(x, y)
+    if self.curTowers > self.maxTowers then return end
     local twr = self.scene.towers[self.selectedTower]()
     upperX = x - twr.w/2
     upperY = y - twr.h/2
     self.scene:addActor(twr, upperX, upperY)
+    self.curTowers = self.curTowers + 1
 end
 
 function Player:mousereleased()

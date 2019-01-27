@@ -25,6 +25,7 @@ SceneGame.healthbar = nil
 SceneGame.cursorSwitched = false
 SceneGame.spawnerAmount = 10
 SceneGame.spawners = {}
+SceneGame.maxEntities = 250
 
 SceneGame.towers = {
         TowerConversation,
@@ -74,6 +75,7 @@ function SceneGame:init(main)
 end
 
 function SceneGame:addActor(actor, x, y)
+    if #self.actors > self.maxEntities then return end
     actor.x = x or 0
     actor.y = y or 0
     table.insert(self.actors, actor)
@@ -89,6 +91,7 @@ function SceneGame:removeActor(actor)
         end
     end
     table.remove( self.actors, ind)
+    self.world:remove(actor.vision)
     self.world:remove(actor)
 end
 

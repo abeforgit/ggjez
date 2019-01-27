@@ -46,7 +46,7 @@ function Enemy:update(dt)
     local targetX = self.x + (dx / length) * dt * self.speed
     local targetY = self.y + (dy / length) * dt * self.speed
     local collisionFilter = function(item, other)
-      if (other.solid and item.solid and other.type ~= "enemy") then
+      if (other.solid and other.type ~= "enemy" and other.type ~= "wall") then
         return "bounce"
       else
         return false
@@ -84,7 +84,7 @@ end
 
 function Enemy:die()
   self.deathSounds[math.random(1, #self.deathSounds)]:play()
-  self.scene.player:heal(25)
+  self.scene.player:heal(15)
   self.scene:removeActor(self)
 end
 

@@ -74,6 +74,7 @@ function Tower:turnEvil()
     local evil = self.evilSide()
     self.scene:addActor(evil, self.x, self.y)
     self.scene:removeActor(self)
+    self.scene.player.curTowers = self.scene.player.curTowers - 1
 end
 
 function Tower:setX(x)
