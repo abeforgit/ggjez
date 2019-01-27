@@ -14,12 +14,6 @@ Enemy.attacksPerSecond = 1
 function Enemy:new(imagePath)
   local enemy = self.create()
   self.img = love.graphics.newImage(imagePath)
-  self.visionRect = {
-    l = self.x - self.range/2,
-    t = self.y - self.range/2,
-    w = self.w + self.range,
-    h = self.h + self.range
-  }
   return enemy
 end
 
@@ -47,6 +41,12 @@ function Enemy:update(dt)
     end
     self.x = newX
     self.y = newY
+    self.visionRect = {
+      l = self.x - self.range/2,
+      t = self.y - self.range/2,
+      w = self.w + self.range,
+      h = self.h + self.range
+    }
   end
 end
 
