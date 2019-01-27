@@ -31,6 +31,7 @@ end
 
 function Enemy:update(dt)
   Actor.update(self, dt)
+  
   self.attackTimer = self.attackTimer + dt
   local dx = self.scene.player.x - self.x
   local dy = self.scene.player.y - self.y
@@ -54,7 +55,7 @@ function Enemy:update(dt)
     end
     self.x = newX
     self.y = newY
-
+    
   end
 end
 

@@ -13,7 +13,6 @@ Tower.range = 200
 Tower.damage = 10
 Tower.attackTimer = 0
 Tower.attacksPerSecond = 1
-Tower.visionRect = nil
 Tower.time = 0
 Tower.constructionSounds = {
     love.audio.newSource("assets/sounds/construction_1.ogg", "static"),
@@ -41,15 +40,10 @@ end
 function Tower:setScene(scn)
     Actor.setScene(self, scn)
     self.scene = scn
-    self.visionRect = {
-        l = self.x - self.range/2,
-        t = self.y - self.range/2,
-        w = self.w + self.range,
-        h = self.h + self.range
-    }
 end
 
 function Tower:update(dt)
+    Actor.update(self,dt)
     self.evilTimer = self.evilTimer - dt
     if self.evilTimer < 0 then
         self:turnEvil()
