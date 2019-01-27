@@ -11,55 +11,52 @@ local Healthbar = require("src.healthbar")
 local Glitches = require("src.glitches")
 local Static = require("src.static")
 local Spawner = require("src.spawner")
+local Class = require("lib.hump.class")
+local Scene = require("src.scene")
 
-local SceneGame = {
-    actors = {},
-    world = nil,
-    player = nil,
-    hotbar = nil,
-    healthbar = nil,
-    cursorSwitched = false,
-    spawnerAmount = 10,
-    spawners = {},
+local SceneGame = Class{__includes = Scene}
 
-    towers = {
+SceneGame.actors = {}
+SceneGame.world = nil
+SceneGame.player = nil
+SceneGame.hotbar = nil
+SceneGame.healthbar = nil
+SceneGame.cursorSwitched = false
+SceneGame.spawnerAmount = 10
+SceneGame.spawners = {}
+
+SceneGame.towers = {
         TowerConversation,
         TowerMedication,
         TowerPet
-    },
-
-    enemies = {
+    }
+SceneGame.enemies = {
         EnemyDeath,
         EnemyDoubt,
         EnemyDrugs
     }
-}
 
-function SceneGame:new() 
-    local scn = {}
-    setmetatable(scn, self) 
-    self.__index = self
+function SceneGame:init(main)
+    Scene.init(self, main, "Bastion of sanity")
     self.world = bump.newWorld()
 
-    local test = EnemyDeath()
-    scn:addActor(test)
 
-    scn:addActor(Static("assets/images/carpet.png", false), 200, 100)
-    scn:addActor(Static("assets/images/bed-left.png", true), 500, 100)
-    scn:addActor(Static("assets/images/bed-right.png", true), 628, 100)
-    scn:addActor(Static("assets/images/sofa-left.png", true), 500, 500)
-    scn:addActor(Static("assets/images/sofa-right.png", true), 628, 500)
-    scn:addActor(EnemyDeath(), 628, 100)
-    scn:addActor(TowerConversation(), 500, 300)
+    self:addActor(Static("assets/images/carpet.png", false), 200, 100)
+    self:addActor(Static("assets/images/bed-left.png", true), 500, 100)
+    self:addActor(Static("assets/images/bed-right.png", true), 628, 100)
+    self:addActor(Static("assets/images/sofa-left.png", true), 500, 500)
+    self:addActor(Static("assets/images/sofa-right.png", true), 628, 500)
+    self:addActor(EnemyDeath(), 628, 100)
+    self:addActor(TowerConversation(), 500, 300)
 
     self.player = Player()
-    scn:addActor(self.player)
+    self:addActor(self.player)
 
     self.hotbar = Hotbar()
-    self.hotbar:setScene(scn)
+    self.hotbar:setScene(self)
 
     self.healthbar = Healthbar()
-    self.healthbar:setScene(scn)
+    self.healthbar:setScene(self)
 
     for i = 1, self.spawnerAmount do
         local spwn = Spawner:new()
@@ -68,8 +65,6 @@ function SceneGame:new()
     end
 
     love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
-    
-    return scn
 end
 
 function SceneGame:addActor(actor, x, y)
@@ -95,9 +90,13 @@ function SceneGame:draw()
     local severity = 100 - self.player.health
 
     if ( not (self.cursorSwitched) and severity >= 100) then
+        self:stopSong()
+        self:playSong(true)
         love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-bad.png"))
         self.cursorSwitched = true
     elseif (self.cursorSwitched and severity < 100) then
+        self:stopSong()
+        self:playSong(false)
         love.mouse.setCursor(love.mouse.newCursor("assets/images/cursor-good.png"))
         self.cursorSwitched = false
     end
