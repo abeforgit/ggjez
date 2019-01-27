@@ -23,9 +23,9 @@ function TowerPet:init()
   self.ps:stop()
 end
 
-function TowerPet:attack(targets)
+function TowerPet:attack()
 
-  local tgt = targets[1]
+  local tgt = self.seen[1]
   local v1 = Vector.new(self.x, self.y)
   local v2 = Vector.new(tgt.x, tgt.y)
   self.ps:start()
@@ -34,9 +34,8 @@ function TowerPet:attack(targets)
   self.ps:stop()
 end
 function TowerPet:update(dt)
-  self.ps:update(dt)
-  print("sldökfjdsklö")
   Tower.update(self, dt)
+  self.ps:update(dt)
 end
 
 function TowerPet:draw()

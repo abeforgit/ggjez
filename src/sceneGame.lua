@@ -32,9 +32,6 @@ function SceneGame:init(main)
     Scene.init(self, main, "Bastion of sanity")
     self.world = bump.newWorld()
 
-    local test = EnemyDeath()
-    print(test.vision)
-    self:addActor(test)
 
     self:addActor(Static("assets/images/carpet.png", false), 200, 100)
     self:addActor(Static("assets/images/bed-left.png", true), 500, 100)
