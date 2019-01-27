@@ -9,7 +9,7 @@ local EnemyDeath = Class{__includes = Enemy}
 
 function EnemyDeath:init()
   Enemy.init(self, "assets/images/death.png")
-  self.damage = 20
+  self.damage = 5
   self.target = nil
   self.animationTimer = 0
 end

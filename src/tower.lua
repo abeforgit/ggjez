@@ -10,7 +10,6 @@ local Tower = Class{__includes = Actor}
 
 Tower.health = 100
 Tower.range = 200
-Tower.damage = 10
 Tower.attackTimer = 0
 Tower.attacksPerSecond = 1
 Tower.time = 0
@@ -41,6 +40,7 @@ function Tower:init()
         end
         return false 
     end
+    self.damage = 0
 end
 
 
@@ -65,7 +65,7 @@ end
 function Tower:attack()
     for i = 1,#self.seen do
         self.shootingSounds[math.random(1, #self.shootingSounds)]:play()
-        self.seen[i].other:takeDamage(10)
+        self.seen[i].other:takeDamage(self.damage)
     end
 end
 

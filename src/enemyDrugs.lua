@@ -5,7 +5,7 @@ local EnemyDrugs = Class{__includes = Enemy}
 
 function EnemyDrugs:init()
   Enemy.init(self, "assets/images/syringe.png")
-  self.damage = 5
+  self.damage = 1
 end
 
 function EnemyDrugs:attack()

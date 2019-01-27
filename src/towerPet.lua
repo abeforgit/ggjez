@@ -13,25 +13,28 @@ TowerPet.evilSide = EnemyDeath
 
 function TowerPet:init()
   Tower.init(self, "assets/images/cat.png")
+  self.attacksPerSecond = 0.15
+  self.damage = 10
   self.pImage = love.graphics.newImage("assets/particles/laserpart.png")
 
-  self.ps = love.graphics.newParticleSystem(self.pImage, 40)
-  self.ps:setParticleLifetime(1)
-  self.ps:setEmissionRate(20)
-  self.ps:setSpeed(200, 500)
+  self.ps = love.graphics.newParticleSystem(self.pImage, 100)
+  self.ps:setParticleLifetime(self.attacksPerSecond)
+  self.ps:setEmissionRate(500)
+  self.ps:setSpeed(1000, 2000)
   self.ps:setRadialAcceleration(110, 150)
   self.ps:stop()
 end
 
 function TowerPet:attack()
 
-  local tgt = self.seen[1]
+  local tgt = self.seen[1].other
   local v1 = Vector.new(self.x, self.y)
   local v2 = Vector.new(tgt.x, tgt.y)
   self.ps:start()
   self.ps:setDirection((v2-v1):angleTo(Vector.new(1,0 )))
-  self.ps:emit(40)
+  self.ps:emit(100)
   self.ps:stop()
+  tgt:takeDamage(self.damage)
 end
 function TowerPet:update(dt)
   Tower.update(self, dt)

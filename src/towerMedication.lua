@@ -13,8 +13,9 @@ TowerMedication.imgPath = "assets/images/pill.png"
 TowerMedication.evilSide = EnemyDrugs
 
 
-function TowerMedication:new()
+function TowerMedication:init()
   Tower.init(self)
+  self.damage = 50
 end
 
 return TowerMedication

@@ -11,7 +11,9 @@ TowerConversation.imgPath = "assets/images/conversation.png"
 TowerConversation.evilSide = EnemyDoubts
 
 function TowerConversation:init()
+  self.range = 300
   Tower.init(self)
+  self.damage = 100
 end
 
 return TowerConversation

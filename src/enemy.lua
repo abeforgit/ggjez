@@ -22,6 +22,7 @@ Enemy.deathSounds = {
     love.audio.newSource("assets/sounds/enemy_dies_2.ogg", "static"),
     love.audio.newSource("assets/sounds/enemy_dies_3.ogg", "static")
 }
+Enemy.damage = 0
 
 function Enemy:init(imagePath)
   Actor.init(self)
@@ -46,7 +47,7 @@ function Enemy:update(dt)
     local targetX = self.x + (dx / length) * dt * self.speed
     local targetY = self.y + (dy / length) * dt * self.speed
     local collisionFilter = function(item, other)
-      if (other.solid and item.solid) then
+      if (other.solid and item.solid and other.type ~= "enemy") then
         return "bounce"
       else
         return false
@@ -71,7 +72,7 @@ function Enemy:attack()
     print(self.seen[i].other.type)
     if self.seen[i].other.type == "player" then
       self.attackSounds[math.random(1, #self.attackSounds)]:play()
-      self.seen[i].other:takeDamage(10)
+      self.seen[i].other:takeDamage(self.damage)
     end
   end
 end
