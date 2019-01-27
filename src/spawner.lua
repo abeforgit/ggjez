@@ -16,15 +16,13 @@ function Spawner:init()
 
     local screenWidth = love.graphics.getWidth()
     local screenHeight = love.graphics.getHeight()
-    if math.random() >= 0.5 then 
-        print("reeeeeee")
+    if math.random() >= 0.5 then
         self.x = - math.random(0, self.spawningWidth) 
     else
         self.x = math.random(screenWidth, screenWidth + self.spawningWidth)
     end 
 
-    if math.random() >= 0.5 then 
-        print("reeeeeee")
+    if math.random() >= 0.5 then
         self.y = - math.random(0, self.spawningHeight) 
     else 
         self.y = math.random(screenHeight, screenHeight + self.spawningHeight)

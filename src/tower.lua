@@ -52,8 +52,6 @@ function Tower:update(dt)
     end
     self.attackTimer = self.attackTimer + dt
 
-    print(#self.seen)
-
     if(#self.seen > 0) then
         if self.attackTimer > self.attacksPerSecond then
             self:attack()
