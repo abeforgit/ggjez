@@ -49,6 +49,9 @@ function Tower:update(dt)
 end
 
 function Tower:attack(targets)
+    for i = 1,#targets do
+        targets[i]:takeDamage(10)
+    end
 end
 
 

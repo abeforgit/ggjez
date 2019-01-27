@@ -8,6 +8,8 @@ Enemy.health = 100
 Enemy.type = "enemy"
 Enemy.visionRect = nil
 Enemy.range = 100
+Enemy.attackTimer = 0
+Enemy.attacksPerSecond = 1
 
 function Enemy:new(imagePath)
   local enemy = self.create()
@@ -22,6 +24,7 @@ function Enemy:new(imagePath)
 end
 
 function Enemy:update(dt)
+  self.attackTimer = self.attackTimer + dt
   local dx = self.scene.player.x - self.x
   local dy = self.scene.player.y - self.y
   local length = math.sqrt(dx*dx + dy*dy)
@@ -32,15 +35,27 @@ function Enemy:update(dt)
       if (other.solid and item.solid) then
           return "bounce"
       else
-          return "cross"
+        return false
       end
   end
     local newX, newY, cols, len = self.scene.world:move(self, targetX, targetY, playerFilter)
+    if(len > 0) then
+      if self.attackTimer > self.attacksPerSecond then
+        self:attack(cols)
+        self.attackTimer = 0
+      end
+    end
     self.x = newX
     self.y = newY
   end
-
+end
   
+function Enemy:attack(targets)
+  for i = 1,#targets do
+    if targets[i].other.type == "player" then
+      targets[i].other:takeDamage(10)
+    end
+  end
 end
 
 function Enemy:takeDamage(dmg)

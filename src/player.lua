@@ -35,7 +35,7 @@ function Player:update(dt)
         actualX, actualY, cols, len = self.scene.world:move(self, self.x + self.moveVec.x * dt, self.y + self.moveVec.y * dt, 
         function(item, other)
             if (other.solid) then
-                return "bounce"
+                return "slide"
             else
                 return "cross"
             end
@@ -121,6 +121,8 @@ function Player:wheelmoved(x, y)
     end
 end
 
-
+function Player:takeDamage(dmg)
+    self.health = self.health - dmg
+end
 
 return Player
