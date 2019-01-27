@@ -1,4 +1,7 @@
-Spawner = {
+local Class = require("lib.hump.class")
+
+
+Spawner = Class {
     shortestTimer = 5,
     longestTimer = 10,
 
@@ -6,10 +9,8 @@ Spawner = {
     spawningHeight = 70
 }
 
-function Spawner:new()
-    local spwnr = {}
-    setmetatable(spwnr, self)
-    self.__index = self
+function Spawner:init()
+
     self.time = math.random(self.shortestTimer, self.longestTimer)
     self.spawnTimer = self.time
 
@@ -29,7 +30,6 @@ function Spawner:new()
         self.y = math.random(screenHeight, screenHeight + self.spawningHeight)
     end 
     
-    return spwnr
 end
 
 function Spawner:setScene(scene)

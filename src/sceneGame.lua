@@ -59,8 +59,8 @@ function SceneGame:init(main)
     self.healthbar:setScene(self)
 
     for i = 1, self.spawnerAmount do
-        local spwn = Spawner:new()
-        spwn:setScene(scn)
+        local spwn = Spawner()
+        spwn:setScene(self)
         table.insert(self.spawners, spwn)
     end
 
